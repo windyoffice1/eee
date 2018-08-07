@@ -133,6 +133,7 @@ var model = avalon.define({$id:'view',user:SYSTEM.user,parameList:typeList,
 						}
 						html+="<th>合计（元）</th></tr></thead>";
 						html+="<tbody><tr>";
+						var all_total_money=0.00;
 						for(var i=0;i<data.length;i++){
 							var total_money=0.00;
 							html+="<tr><th>"+data[i].child_material_name+"</th>";
@@ -150,8 +151,11 @@ var model = avalon.define({$id:'view',user:SYSTEM.user,parameList:typeList,
 								}
 							}
 							html+="<td>"+total_money+"</td></tr>";
+							all_total_money+=total_money;
 	 					}
 						html+="</tr></tbody>";
+						html+="<tfoot><tr><td colspan='6' align='right'><b>合计(元)：</b></td>"
+						html+="<td>"+all_total_money+"</td></tr></tfoot>";
 						html+="</table></div>";
 						$("#view").append(html);
 					}

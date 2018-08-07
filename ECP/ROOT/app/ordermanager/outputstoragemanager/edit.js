@@ -7,7 +7,7 @@ var model = avalon.define({
 			productlistlength:1,order_amt:0,
 			productlist:[{getmaterial_apply_id:'',material_data_id: "",id: "",purchase_price: "",material_data_no:"",material_no:"",model_number:"",unit:"",material_data_name: "",
 						  material_name:"",total_money:0,amount:0,comment:0,un_outputstorage_amount:0,outputstorage_amount:"",outputstorage_comment:0,target_price:0,real_outputstorage_amount:0,
-						  real_outputstorage_money:0,outputstorage_total_money:"",outputstorage_warehouse_id:"",}]},
+						  real_outputstorage_money:0,outputstorage_total_money:"",outputstorage_warehouse_id:"",inv_existing_amount:0}]},
 	total_plan_amount:0,
 	total_real_un_outputstorage_amount:0,
 	total_real_outputstarage_amount:0,

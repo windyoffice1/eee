@@ -44,6 +44,7 @@ body{background: #fff;}
   						<th width="8%" style="text-align:center">未出库数量</th>
   						<th width="8%" style="text-align:center">出库数量</th>
   						<th width="8%" style="text-align:center">出库金额</th>
+  						<th width="8%" style="text-align:center">库存数量</th>
   						<th width="8%" style="text-align:center">仓位</th>
   						<th width="8%" style="text-align:center">备注</th>
   					</tr>
@@ -62,6 +63,7 @@ body{background: #fff;}
   						<td><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" 
   								ms-duplex="el.real_outputstorage_amount"  ms-change="jisuan(this.value,$index)"/></td>
   						<td class="tdPd" align="center">{{el.outputstorage_total_money|money}}</td>
+  						<td class="tdPd" align="center">{{el.inv_existing_amount}}</td>
   						<td>
 	    					<select ms-duplex="el.outputstorage_warehouse_id" class="ui-input" id="$index" data-msg="请选择仓位" data-rule="required;">
 	    						<option ms-repeat="warehouseList" ms-value="el.id" ms-click="chooseWarehouse(el,$index)">{{el.warehouse_name}}</option>

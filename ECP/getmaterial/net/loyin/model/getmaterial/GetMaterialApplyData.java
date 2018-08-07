@@ -63,8 +63,9 @@ public class GetMaterialApplyData extends Model<GetMaterialApplyData>{
 	public List<GetMaterialApplyData> getDataList(String getMaterialApplyID,String childWareHouseId){
 		StringBuffer sql=new StringBuffer();
 			sql.append("SELECT gad.*, bmd.material_name AS material_data_name,bmd.material_no AS material_data_no,")
-				.append("bmd.model_number,bmd.existing_number,bmd.target_price FROM  ")
+				.append("bmd.model_number,bmd.existing_number,bmd.target_price,inv.existing_amount	AS inv_existing_amount FROM  ")
 				.append("(SELECT * FROM getmaterial_apply_data WHERE getmaterial_apply_id=? ) gad   ")
+				.append(" LEFT JOIN inventory inv on inv.material_data_id=gad.material_data_id ")
 				.append("LEFT JOIN basic_material_data bmd ON gad.material_data_id=bmd.id ") 
 				.append("LEFT JOIN (SELECT material_data_id ,SUM(existing_amount) AS existing_amount FROM inventory_child_warehouse WHERE child_warehouse_id=? ")
 				.append("GROUP BY material_data_id) ivt ON bmd.id=ivt.material_data_id order by bmd.material_no ");

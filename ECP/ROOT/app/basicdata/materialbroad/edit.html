@@ -1,0 +1,46 @@
+<#include "../../inc/layout.html">
+<@layout title="物料管理" js="basicdata/materialbroad/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">物料信息</a></li>
+	</ul>
+<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">物料类型</label><font color="red">*</font></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap">
+	    					<select ms-duplex="data.type" class="ui-input" data-rule="required">
+								<option ms-repeat="parameList[21]" ms-value="el.id">{{el.name}}</option>
+							</select>
+						</div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>大类编号</label><font color="red">*</font></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.material_no"id="material_no" data-rule="required;"  maxlength="20" /></div>
+    			</li>	
+    		   <li class="row-item">
+    				<div class="label-wrap"><label>大类名称</label><font color="red">*</font></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.material_name"id=".material_name" data-rule="required;"  maxlength="20" /></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>保管员</label><font color="red">*</font></div>
+    				<div class="ctn-wrap">
+    					<select ms-duplex="data.keeper" id="keeper" class="ui-input" data-rule="required">
+    						<option></option>
+    						<option ms-repeat="userList" ms-value="el.id">{{el.realname}}({{el.department_name}}-{{el.position_name}})</option>
+    					</select>
+					</div>
+    			</li>
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

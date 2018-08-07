@@ -1,0 +1,31 @@
+<#include "../../inc/layout.html">
+<@layout title="通知管理" js="basicdata/notice/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">通知</a></li>
+	</ul>
+<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">通知标题</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.title" id="title"  data-rule="required;" maxlength="30" placeholder="请输入标题"></div>
+    			</li>
+    			<br/>
+    			<br/>
+    			<li class="row-item" style="width:100%">
+    				<div class="label-wrap"><label>通知内容</label></div>
+    				<div class="ctn-wrap">
+    					<textarea rows="20" cols="110"  ms-duplex="data.content" id="content"  data-rule="required;"></textarea>
+    				</div>
+    			</li>    			
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

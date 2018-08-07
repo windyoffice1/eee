@@ -1,0 +1,96 @@
+<#include "../../inc/layout.html">
+<@layout title="财务报表/月结统计表" js="reportforms/finance/yearstatementstatistics.js">
+<style>
+html{overflow:auto;}
+.comboDiv{position:absolute;left:61px;}
+.comboDiv div{height:30px;}
+</style>
+<div class="wrapper" ms-controller="view" id="view">
+  <div class="mod-search cf" ms-if="nprint">
+    <div class="fl">
+      <ul class="ul-inline">
+        <li>
+        	<select ms-duplex="query.year" class="ui-input" ms-change="model.setMonth()">
+				<option ms-repeat="year" ms-value="el">{{el}}</option>
+			</select>
+        	<label>年</label>
+        </li>
+        <li>
+        	<select ms-duplex="query.begin_month" class="ui-input" id="begin_month" ms-change="model.loadData()">
+				<option ms-repeat="month" ms-value="el">{{el}}</option>
+			</select>
+        	<label>月</label>
+        </li>
+        <li>
+       		<label>至</label>
+        	<select ms-duplex="query.end_month" class="ui-input" id="end_month" ms-change="model.loadData()">
+				<option ms-repeat="month" ms-value="el">{{el}}</option>
+			</select>
+        	<label>月</label>
+        </li>
+        <li ms-if="query.type==0">
+        	<label>物料编号:</label>
+        	<input type="text" class="ui-input" autocomplete="off" style="width:130px;"  ms-duplex="query.material_data_no">
+        </li>
+       	<li ms-if="query.type==1">
+        	<label>领料单位:</label>
+			<select ms-duplex="query.child_warehouse_id" class="ui-input" style="" data-msg="请选择领料单位" ms-change="model.loadData()">
+				<option value="">所有</option>
+				<option ms-repeat="childwarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+			</select>
+        </li>
+        <li style="margin-top:margin-top:0.4%">
+        	<input type="checkbox" name="type" value="0" id="type0" />按照物料大类统计
+        	<input type="checkbox" name="type" value="1" id="type1" />按照船站统计
+        </li>
+        <li>
+	        <a class="ui-btn mrb"  id="btn_query" ms-click="model.loadData()" title="查询"><i class="fa fa-search" style="margin-top:30%"></i></a>
+	        <a class="ui-btn mrb" id="refresh" ms-click="model.resetQry()" title="重置查询条件"><i class="fa fa-refresh" style="margin-top:35%" ></i></a>
+	        <a class="ui-btn mrb" id="btn_down" ms-click="model.exportExcel()" title="导出"><i class="fa fa-download" style="margin-top:30%"></i></a>
+	        <a class="ui-btn mrb" ms-click="printRpt" title="打印"><i class="fa fa-print" style="margin-top:30%"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="no-query" ms-if="list.length==0&&query.type==0"></div>
+   <div class="no-query" ms-if="isChildWarehouseNoData==1"></div>
+  <div class="bills" ms-if="list.length>0">
+    <p style="font-size:24px;text-align:center;">
+    	<span>年结统计表</span>
+    </p>
+	<table class="table table-bordered table-striped able-hover exportTable0">
+		<thead>
+			<tr>
+				<th>大类编号</th>
+				<th>所属大类</th>
+				<th>期初金额（元）</th>
+				<th>入库金额（元）</th>
+				<th>出库金额（元）</th>
+				<th>期末金额（元）</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ms-repeat="list">
+				<th>{{el.belong_to_broad_no}}</th>
+				<td>{{el.belong_to_broad_name}}</td>
+				<td>{{el.begin_money}}</td>
+				<td>{{el.putinstorage_money}}</td>
+				<td>{{el.outputstorage_money}}</td>
+				<td>{{el.end_money}}</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<!-- <td ms-attr-colspan="2" align="right"><b>合计</b></td> -->
+				<td><b>合计</b></td>
+				<td></td>
+				<td align="right">{{begin_total_money}}</td>
+				<td align="right">{{putinstorage_total_money}}</td>
+				<td align="right">{{outputstorage_total_money}}</td>
+				<td align="right">{{end_total_money}}</td>
+			</tr>
+		</tfoot>
+	</table>
+  </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

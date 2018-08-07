@@ -1,0 +1,41 @@
+<#include "../../inc/layout.html">
+<@layout title="子仓库视图" js="/basicdata/childwarehouse/view.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+<!--    	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">子仓库信息</a></li>
+	</ul> -->
+<div ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		   <li class="row-item">
+    				<div class="label-wrap"><label for="child_warehouse_name">单位名称</label></div>
+    				<div class="ctn-wrap">{{data.child_warehouse_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="manage_user_name">负责人</label></div>
+    				<div class="ctn-wrap">{{data.manage_user_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="phone">联系电话</label></div>
+    				<div class="ctn-wrap">{{data.phone}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="email">邮箱</label></div>
+    				<div class="ctn-wrap">{{data.email}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="adress">地址</label></div>
+    				<div class="ctn-wrap">{{data.adress}}</div>
+    			</li>
+    		</ul>
+    </div>
+    <div class="grid-wrap"style="padding-top:5px;"ms-visible="tabActive==2" >
+    	<table id="grid">
+    	</table>
+    </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

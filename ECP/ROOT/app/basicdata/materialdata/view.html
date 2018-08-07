@@ -1,0 +1,73 @@
+<#include "../../inc/layout.html">
+<@layout title="物料视图" js="/basicdata/materialdata/view.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">物料信息</a></li>
+	</ul>
+<div ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		    <li class="row-item">
+    				<div class="label-wrap"><label for="belong_to_broad_name">所属大类名称</label></div>
+    				<div class="ctn-wrap">{{data.belong_to_broad_name}}</div>
+    			</li>
+    		    <li class="row-item">
+    				<div class="label-wrap"><label for="belong_to_broad_no">所属大类编号</label></div>
+    				<div class="ctn-wrap">{{data.belong_to_broad_no}}</div>
+    			</li>    			
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="material_name">物料名称</label></div>
+    				<div class="ctn-wrap">{{data.material_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="material_no">物料编号</label></div>
+    				<div class="ctn-wrap">{{data.material_no}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="model_number">规格型号</label></div>
+    				<div class="ctn-wrap">{{data.model_number}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="existing_number">现有数量</label></div>
+    				<div class="ctn-wrap">{{data.existing_amount}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="keeper_name">库存预警数量</label></div>
+    				<div class="ctn-wrap">{{data.inventory_warning_amount}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="unit">单位名称</label></div>
+    				<div class="ctn-wrap">{{data.unit|custParame}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="target_price">计划价格</label></div>
+    				<div class="ctn-wrap">{{data.target_price}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="float_price">浮动比例</label></div>
+    				<div class="ctn-wrap">{{data.float_rate}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="float_price">浮动价格</label></div>
+    				<div class="ctn-wrap">{{data.float_price}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="float_price">平均价格</label></div>
+    				<div class="ctn-wrap">{{data.average_price}}</div>
+    			</li>    			
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="keeper_name">保管员</label></div>
+    				<div class="ctn-wrap">{{data.keeper_name}}</div>
+    			</li>
+    		</ul>
+    </div>
+    <div class="grid-wrap"style="padding-top:5px;"ms-visible="tabActive==2" >
+    	<table id="grid">
+    	</table>
+    </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

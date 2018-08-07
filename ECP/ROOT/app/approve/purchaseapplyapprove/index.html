@@ -1,0 +1,31 @@
+<#include "../../inc/layout.html">
+<@layout title="采购申请审批" js="approve/purchaseapplyapprove/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+    	<ul class="ul-inline">
+	        <li>
+	          <input type="text"  ms-duplex="query.purchase_no" class="ui-input con" value="" placeholder="请输入申请单编号">
+	        </li>
+	       	<li>
+	        <a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+	        <a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh" style="margin-top:25%" ></i></a>
+	        </li>
+	        <li>
+        </li>
+	      </ul>
+    </div>
+   <!--  <div class="fr">
+    <a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a>
+    <a class="ui-btn mrb"id="btn-batchDel"title="批量删除"><i class="fa red fa-trash-o" style="margin-top:50%"></i></a>
+    <a ms-visible="query.qryType==4"class="ui-btn mrb" id="btn-batchReply" title="批量恢复"><i class="fa fa-reply"></i>恢复</a>
+    </div> -->
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

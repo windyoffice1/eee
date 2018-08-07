@@ -1,0 +1,92 @@
+<#include "../../inc/layout.html">
+<@layout title="盘点" js="inventorymanager/check/edit.js">
+<style>
+body{background: #fff;}
+#prodcutTable .ui-input{width:100%;}
+.comboDiv{position:absolute;left:104px;}
+.comboDiv div{height:30px;}
+.table .comboDiv{position:absolute;left:133px;}
+.table tbody tr td{padding:0px;}
+.table tbody tr td .ui-input{width:100%;height:34px;}
+.table tbody tr .tdPd{padding:8px;}
+.table .ui-input{border:none;}
+.table1 td{padding:2px;}
+.tr{text-align:right;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+    	<form action=""id="base_form">
+    			<table style="width:100%;" class="table1">
+    				<tr>
+    					<td width="10%" align="right">选择仓位：</td>
+    					<td width="10%">
+	    					<select ms-duplex="data.warehouse_id" class="ui-input" style="width:100%;" data-rule="required" ms-change="getWarehouseMaterial(this.value)" data-msg="请选择仓位">
+	    						<option ms-repeat="warehouseList" ms-value="el.id" >{{el.warehouse_name}}</option>
+	    					</select>
+    					</td>
+    					<td width="10%" align="right">盘点日期：</td>
+    					<td width="10%"><input id="check_date" class="ui-input ui-datepicker-input" style="width:100%;" ms-duplex="data.check_date" data-msg="盘点日期" data-rule="required;"/></td>
+    					<td width="10%" align="right">盘点人：</td>
+    					<td width="10%" align="left">{{SYSTEM.user.realname}}</td>
+    				</tr>
+    			</table>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+				style="display:block;overflow:auto;min-height:100px;max-height:300px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="10%" style="text-align:center">物料编号</th>
+  						<th width="10%" style="text-align:center">物料名称</th>  						
+  						<th width="10%" style="text-align:center">型号规格</th>
+  						<th width="5%" style="text-align:center">单位</th>
+  						<th width="5%" style="text-align:center">单价</th>
+  						<th width="10%" style="text-align:center">原库存数量</th>
+  						<th width="10%" style="text-align:center">现库存数量</th>
+  						<th width="5%" style="text-align:center">偏差数量</th>
+  						<th width="10%" style="text-align:center">盈亏金额</th>
+  						<th width="10%" style="text-align:center">备注</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td class="tdPd" style="text-align:center">{{$index+1}}</td>
+  						<td class="tdPd" style="text-align:center"><nobr><i class="fa fa-trash mrb" ms-click="delRow($index)" title="移除"></i></nobr></td>
+	          			<td class="tdPd" style="text-align:center">{{el.material_data_no}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.material_data_name}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.model_number}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.unit|custParame}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.target_price|money}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.original_amount}}</td>
+  						<td style="text-align:center"><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" ms-duplex="el.now_amount" ms-change="jisuan(this.value,$index)"></td>
+  						<td class="tdPd" style="text-align:center">{{el.deviation_amount}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.deviation_total_money}}</td>
+  						<td><input class="ui-input" ms-attr-id="id8{{$index}}"maxlength="30" ms-duplex="el.comment"></td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="7" align="right"><b>合计：</b></td>
+  						<td>{{(original_total_amount)}}</td>
+  						<td>{{now_total_amount}}</td>
+  						<td>{{(total_amount)}}</td>
+  						<td align="right">{{deviation_total_money|money}}</td>
+  					</tr>
+  					
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+          <p>
+            	盈亏金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+           <p>
+			 备注：
+           <br>
+           <input ms-duplex="data.comment" id="comment" class="ui-input" style="width:100%;">
+           </p>
+       </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

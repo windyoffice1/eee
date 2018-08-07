@@ -1,0 +1,35 @@
+<#include "../../inc/layout.html">
+<@layout title="移位管理" js="inventorymanager/transfer/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl" style="width:35%">
+    	<ul class="ul-inline">
+	        <li style="width:25%">
+        	   <select ms-duplex="query.from_warehouse_id" class="ui-input" style="width:100%">
+        	   		<option style="font-style: italic" value="">请选择原属仓位</option>
+   					<option ms-repeat="warehouseList" ms-value="el.id">{{el.warehouse_name}}</option>
+   				</select>
+	       	<li>
+	       	<li style="width:25%">
+        	   <select ms-duplex="query.target_warehouse_id" class="ui-input" style="width:100%">
+        	   		<option style="font-style: italic" value="">请选择目标仓位</option>
+   					<option ms-repeat="warehouseList" ms-value="el.id">{{el.warehouse_name}}</option>
+   				</select>
+	       	<li>
+	        <a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+	        <a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh"  style="margin-top:25%"></i></a>
+	        </li>
+	      </ul>
+    </div>
+    <div class="fr">
+    	<a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

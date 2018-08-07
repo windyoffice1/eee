@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="采购申请流程" instanceUrl="purchaseapply/start" name="purchaseapply">
+<start displayName="start1" layout="66,154,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="task1"/>
+</start>
+<task assignee="approveDept.operator" assignmentHandler="net.loyin.model.wf.TaskAssign" autoExecute="Y" displayName="部门经理审批" form="purchaseapply/approveDept.html" layout="208,151,-1,-1" name="task1" performType="ANY" taskType="Major">
+<transition g="" name="transition2" offset="0,0" to="decision1"/>
+</task>
+<task assignee="approveDeputy.operator" autoExecute="Y" displayName="分管副总审批" form="purchaseapply/approveDept.html" layout="355,283,-1,-1" name="task2" performType="ANY" taskType="Major">
+<transition g="" name="transition5" offset="0,0" to="decision2"/>
+</task>
+<end displayName="end1" layout="735,154,-1,-1" name="end1"/>
+<task assignee="approveCEO.operator" autoExecute="Y" displayName="总经理审批" form="purchaseapply/approveDept.html" layout="715,279,-1,-1" name="task3" performType="ANY" taskType="Major">
+<transition g="" name="transition8" offset="0,0" to="end1"/>
+</task>
+<decision displayName="decision1" expr="#total_mony &gt; 20000 ? 'transition4' : 'transition3'" layout="372,154,-1,-1" name="decision1">
+<transition displayName="总金额&lt;=20000" g="" name="transition3" offset="0,0" to="end1"/>
+<transition displayName="总金额&gt;20000" g="" name="transition4" offset="0,0" to="task2"/>
+</decision>
+<decision displayName="decision2" expr="#total_mony &gt; 50000 ? 'transition7' : 'transition6'" layout="561,285,-1,-1" name="decision2">
+<transition displayName="总金额&gt;50000" g="" name="transition7" offset="0,0" to="task3"/>
+<transition displayName="总金额&lt;=50000" g="" name="transition6" offset="0,0" to="end1"/>
+</decision>
+</process>

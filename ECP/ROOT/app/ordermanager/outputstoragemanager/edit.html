@@ -1,0 +1,96 @@
+<#include "../../inc/layout.html">
+<@layout title="出库管理" js="ordermanager/outputstoragemanager/edit.js">
+<style>
+body{background: #fff;}
+#prodcutTable .ui-input{width:100%;}
+.comboDiv{position:absolute;left:104px;}
+.comboDiv div{height:30px;}
+.table .comboDiv{position:absolute;left:133px;}
+.table tbody tr td{padding:0px;}
+.table tbody tr td .ui-input{width:100%;height:34px;}
+.table tbody tr .tdPd{padding:8px;}
+.table .ui-input{border:none;}
+.table1 td{padding:2px;}
+.tr{text-align:right;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+    	<form action=""id="base_form">
+   			<table style="width:100%;" class="table1">
+   				<tr>
+   					<td align="right"><span>领料单位：</span></td>
+   					<td align="left">
+    					{{data.child_warehouse_name}}
+   					</td>
+   					<td align="right">类型：</td>
+					<td align="left">{{data.type}}</td>
+					<td align="right">申请单名称：</td>
+					<td align="left">{{data.getmaterial_name}}</td>
+   				</tr>
+   			</table>
+    		<br/>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable" 
+					style="display:block;overflow:auto;min-height:100px;max-height:350px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="3%">&nbsp;</th>
+  						<th width="3%">&nbsp;</th>
+  						<th width="10%" style="text-align:center">物料名称</th>  						
+  						<th width="10%" style="text-align:center">物料编号</th>
+  						<th width="5%" style="text-align:center">型号规格</th>
+  						<th width="5%" style="text-align:center">单位</th>
+  						<th width="8%" style="text-align:center">参考价</th>
+  						<th width="8%" style="text-align:center">审批数量</th>
+  						<th width="8%" style="text-align:center">未出库数量</th>
+  						<th width="8%" style="text-align:center">出库数量</th>
+  						<th width="8%" style="text-align:center">出库金额</th>
+  						<th width="8%" style="text-align:center">仓位</th>
+  						<th width="8%" style="text-align:center">备注</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td width="3%" class="tdPd" align="center">{{$index+1}}</td>
+  						<td width="3%" class="tdPd" align="center"><nobr><i class="fa fa-trash mrb" ms-click="delRow($index)" title="移除"></i></nobr></td>
+	          			<td class="tdPd" align="center">{{el.material_data_name}}</td>
+  						<td class="tdPd" align="center">{{el.material_data_no}}</td>
+	          			<td class="tdPd" align="center">{{el.model_number}}</td>
+	          			<td class="tdPd" align="center">{{el.unit|custParame}}</td>
+	          			<td class="tdPd" align="center">{{el.purchase_price}}</td>
+  						<td class="tdPd" align="center">{{el.amount}}</td>
+  						<td class="tdPd" align="center">{{el.un_outputstorage_amount}}</td>
+  						<td><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" 
+  								ms-duplex="el.real_outputstorage_amount"  ms-change="jisuan(this.value,$index)"/></td>
+  						<td class="tdPd" align="center">{{el.outputstorage_total_money|money}}</td>
+  						<td>
+	    					<select ms-duplex="el.outputstorage_warehouse_id" class="ui-input" id="$index" data-msg="请选择仓位" data-rule="required;">
+	    						<option ms-repeat="warehouseList" ms-value="el.id" ms-click="chooseWarehouse(el,$index)">{{el.warehouse_name}}</option>
+	    					</select>
+    					</td>
+    					<td><input class="ui-input" ms-attr-id="id9{{$index}}" maxlength="30" ms-duplex="el.outputstorage_comment"></td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="7" align="right"><b>合计：</b></td>
+  						<td align="center">{{(total_plan_amount)}}</td>
+  						<td align="center">{{total_real_un_outputstorage_amount}}</td>
+  						<td align="center">{{total_real_outputstarage_amount}}</td>
+  						<td align="right">{{total_real_outputstorage_money|money}}</td>
+  					</tr>
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+		        <p>
+		           	实际入库金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}"/>
+		        </p>
+<!-- 		        <p>
+					 备注：
+		        <br>
+		        	<input ms-duplex="data.putinstorage_comment" id="putinstorage_comment" class="ui-input" style="width:100%;">
+		        </p> -->
+      		</div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

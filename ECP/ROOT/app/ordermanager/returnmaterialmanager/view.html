@@ -1,0 +1,73 @@
+<#include "../../inc/layout.html">
+<@layout title="退料详情" js="ordermanager/returnmaterialmanager/view.js">
+<style>
+body{background: #fff;}
+.table1 td{padding:2px;}
+u{width:200px;}
+.title_class{font-size: 30px;font-weight:bold;padding-left:32%;width:100%;margin-bottom: 15px}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+            <div class="title_class">
+    			上海崇明客运轮船有限公司
+    		</div>
+    		<div class="title_class" style="padding-left:44.5%;">
+    			退料单
+    		</div> 
+   			<table style="width:100%;font-size: 16px;" class="table1">
+   				<tr>
+   					<td align="right">退料单位：</td>
+   					<td width="20%">{{data.child_warehouse_name}}</td>
+   					<td align="right">申请单名称：</td>
+   					<td>{{data.returnmaterial_name}}</td>
+   				</tr>
+   			</table>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable" 
+					style="display:block;overflow:auto;min-height:100px;max-height:350px;width:100%;font-size: 13px;">
+  				<thead>
+  					<tr>
+  						<th width="50px" style="font-size: 14px;">&nbsp;</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">物料编号</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">物料名称</th>  						
+  						<th width="185px" style="font-size: 14px;text-align:center">型号规格</th>
+  						<th width="100px" style="font-size: 14px;text-align:center">单位</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">单价</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">退料数量</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">退料金额</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">是否合格</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">日期</th>
+  						<th width="185px" style="font-size: 14px;text-align:center">备注</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td style="text-align:center">{{$index+1}}</td>
+  						<td style="text-align:center">{{el.material_data_no}}</td>
+  						<td style="text-align:center">{{el.material_data_name}}</td>
+  						<td style="text-align:center">{{el.model_number}}</td>
+	          			<td style="text-align:center">{{el.unit|custParame}}</td>  						
+  						<td style="text-align:center">{{el.target_price|money}}</td>
+  						<td style="text-align:center">{{el.amount}}</td>
+  						<td style="text-align:center">{{el.total_money|money}}</td>
+  						<td style="text-align:center">{{el.is_qualified}}</td>
+  						<td style="text-align:center">{{el.putinstorage_date}}</td>
+  						<td style="text-align:center">{{el.putinstorage_comment}}</td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="6" align="right"><b>合计：</b></td>
+  						<td align="center">{{(total_amount)}}</td>
+  						<td align="right">{{total_money|money}}</td>
+  					</tr>
+  				</tfoot>
+    		</table>
+    		<div id="amountArea" style="font-size: 16px;">
+          <p>
+            	实际退料金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+       </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

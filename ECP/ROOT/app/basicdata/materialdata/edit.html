@@ -1,0 +1,79 @@
+<#include "../../inc/layout.html">
+<@layout title="物料管理" js="basicdata/materialdata/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">物料信息</a></li>
+	</ul>
+<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">所属物料大类</label></div>
+    				<select ms-duplex="data.belong_to_broad_id" class="ui-input" ms-click="model.chooseMaterialBroad(this.value)">
+    					<option ms-repeat="materialBroadList" ms-value="el.id">{{el.material_name}}--{{el.material_no}}</option>
+    				</select>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>物料名称</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input"  ms-duplex="data.material_name" id="material_name"  data-rule="required;" maxlength="20" placeholder="请输入物料名称"></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>物料编号</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.material_no" id="material_no" data-rule="required;"  maxlength="20" placeholder="请输入物料编号"></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">规格型号</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.model_number" id="model_number"  data-rule="required;" placeholder="请输入规格型号" maxlength="20" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">现有数量</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.existing_amount" id="existing_amount"  data-rule="integer" readonly="readonly" maxlength="20" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">库存预警数量</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.inventory_warning_amount" id="inventory_warning_amount"  data-rule="integer"  maxlength="20" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">单位名称</label></div>
+    				<select ms-duplex="data.unit" class="ui-input">
+    					<option ms-repeat="parameList[1]" ms-value="el.id">{{el.name}}</option>
+    				</select>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">计划价格</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.target_price" id="target_price" data-rule="money"  maxlength="20" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">浮动比例</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.float_rate" id="float_rate" data-rule="required; float" 
+    						 data-rule-float="[/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/, '请输入浮点型数据，如0.3']" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">保管员</label></div>
+      				<div class="ctn-wrap">
+    					<select ms-duplex="data.keeper" id="keeper" class="ui-input" data-rule="required">
+    						<option></option>
+    						<option ms-repeat="userList" ms-value="el.id">{{el.realname}}({{el.department_name}}-{{el.position_name}})</option>
+    					</select>
+					</div>
+    			</li>     			
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

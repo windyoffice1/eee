@@ -1,0 +1,37 @@
+<#include "../../inc/layout.html">
+<@layout title="仓位视图" js="/basicdata/warehouselocation/view.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">仓位信息</a></li>
+	</ul>
+<div ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		   <li class="row-item">
+    				<div class="label-wrap"><label for="admin">仓位名称</label></div>
+    				<div class="ctn-wrap">{{data.warehouse_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="admin">管理员</label></div>
+    				<div class="ctn-wrap">{{data.admin_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="phone">电话号码</label></div>
+    				<div class="ctn-wrap">{{data.phone}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="location">位置</label></div>
+    				<div class="ctn-wrap">{{data.location}}</div>
+    			</li>
+    		</ul>
+    </div>
+    <div class="grid-wrap"style="padding-top:5px;"ms-visible="tabActive==2" >
+    	<table id="grid">
+    	</table>
+    </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

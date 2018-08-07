@@ -1,0 +1,36 @@
+<#include "../../inc/layout.html">
+<@layout title="子仓库管理" js="basicdata/childwarehouse/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+      <ul class="ul-inline">
+      <!--   <li>
+          <input type="text"  ms-duplex="query.admin" class="ui-input con" value="" placeholder="请输管理员名称">
+        </li> -->
+        <li>
+			<input type="text"  ms-duplex="query.child_warehouse_name" class="ui-input con" value="" placeholder="请输子仓库名称">
+        <li>
+        <a class="ui-btn" id="search" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+        <a class="ui-btn" id="refresh" title="刷新"><i class="fa fa-refresh" style="margin-top:25%" ></i></a>
+        </li>
+        <li>
+	        <div class="dropdown">
+				<a class="ui-btn dropdown-toggle" data-toggle="dropdown">{{fastQryText}}<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				<li ms-repeat="fastQry" ms-class="divider:el.sl"><a ms-click="qry($index)">{{el.text}}</a></li>
+				</ul>
+			</div>
+        </li>
+      </ul>
+    </div>
+    <div class="fr"><a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus"></i>新增</a>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

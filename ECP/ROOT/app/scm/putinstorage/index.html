@@ -1,0 +1,30 @@
+<#include "../../inc/layout.html">
+<@layout title="入库通知" js="scm/putinstorage/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+      <ul class="ul-inline">
+        <li>
+          <input type="text"  ms-duplex="query.putinstorage_name" class="ui-input con" value="" placeholder="请输入入库单名称">
+        </li>
+<!--         <li>
+    		<label>物料类型:</label>
+			<select ms-duplex="query.type" class="ui-input">
+				<option ms-repeat="parameList[21]" ms-value="el.id">{{el.name}}</option>
+			</select>
+        </li> -->
+        <li>
+        <a class="ui-btn" id="search" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+        <a class="ui-btn" id="refresh" title="刷新"><i class="fa fa-refresh" style="margin-top:25%" ></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

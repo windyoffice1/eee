@@ -1,0 +1,43 @@
+<#include "../../inc/layout.html">
+<@layout title="报废管理" js="inventorymanager/scrap/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl" style="width:35%">
+    	<ul class="ul-inline">
+	        <li style="width:25%" ms-if="query.type==0||query.type==''">
+        	   <select ms-duplex="query.warehouse_id" class="ui-input" style="width:100%" id="warehouse">
+        	   		<option style="font-style: italic" value="">请选择报废仓位</option>
+   					<option   ms-repeat="warehouseList" ms-value="el.id">{{el.warehouse_name}}</option>
+   				</select>
+	       	<li>
+	       	<li style="width:25%"  ms-if="query.type==1" >
+        	   <select ms-duplex="query.warehouse_id" class="ui-input" style="width:100%">
+        	   		<option style="font-style: italic" value="">请选择报废船站</option>
+   					<option ms-repeat="childWarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+   				</select>
+	       	<li>
+	        <a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+	        <a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh"  style="margin-top:25%"></i></a>
+	        </li>
+	        <li>
+		        <div class="dropdown">
+					<a class="ui-btn dropdown-toggle" data-toggle="dropdown">{{fastQryText}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					<li ms-repeat="fastQry" ms-class="divider:el.sl"><a ms-click="qry($index)">{{el.text}}</a></li>
+					</ul>
+				</div>
+        	</li>
+	      </ul>
+    </div>
+    <div class="fr">
+    	<a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

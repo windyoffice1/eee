@@ -1,0 +1,45 @@
+<#include "../../inc/layout.html">
+<@layout title="子仓库管理" js="basicdata/childwarehouse/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+<!--    	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">子仓库信息</a></li>
+	</ul> -->
+<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		    <li class="row-item">
+    				<div class="label-wrap"><label>单位名称</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.child_warehouse_name"id="child_warehouse_name" data-rule="required;"  maxlength="20" placeholder="请输入单位名称"></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>负责人</label></div>
+    				<div class="ctn-wrap">
+    					<select ms-duplex="data.manage_user_id" class="ui-input" style="width:66%;" data-rule="required" data-msg="请选择负责人">
+    						<option ms-repeat="userList" ms-value="el.id">{{el.realname}}({{el.department_name}}-{{el.position_name}})</option>
+    					</select>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="phone">联系电话</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.phone" id="phone"placeholder="请输入联系电话" maxlength="20" ></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="email">电子邮箱</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.email" id="email" placeholder="请输入邮箱" maxlength="20" ></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="adress">地址</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.adress" id="adress"placeholder="请输入地址" maxlength="20" ></div>
+    				</div>
+    			</li>
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

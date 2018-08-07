@@ -1,0 +1,123 @@
+ <ul id="nav" class="cf">
+ <li ms-if="showMenu('A1')" class="item item-DD"> <a href="javascript:void(0);" class="DD main-nav">订单管理<span class="arrow"></span></a>
+        <div class="sub-nav-wrap"><#--group-nav-t0-->
+          <ul class="sub-nav" >
+          	<li ms-if="showMenu('A1_1_S')"><a href="/ordermanager/outputstoragemanager" rel=pageTab tabid="DD-1">出库管理</a></li>
+          	<li ms-if="showMenu('A1_2_S')"><a href="/ordermanager/putinstoragemanager" rel=pageTab tabid="DD-2">入库管理</a></li>
+          	<li ms-if="showMenu('A1_3_S')"><a href="/ordermanager/returnmaterialmanager" rel=pageTab tabid="DD-3">退料管理</a></li>
+          </ul>
+        </div>
+      </li>
+<!--  客户关系 -->                                             
+ 	<li ms-if="showMenu('A2')" class="item item-CH"> <a href="javascript:void(0);" class="CH main-nav">存货管理<span class="arrow"></span></a>
+        <div class="sub-nav-wrap cf group-nav" style="width:120px;">
+	          <ul class="sub-nav" >
+	          	<li ms-if="showMenu('A2_1_S')"><a href="/inventorymanager/inventory" rel=pageTab tabid="CH-1">库存列表</a></li>
+	          	<li ms-if="showMenu('A2_2_S')"><a href="/inventorymanager/inventorychildwarehouse" rel=pageTab tabid="CH-2">船/站库存列表</a></li>
+	          	<li ms-if="showMenu('A2_7_S')"><a href="/inventorymanager/childwarehousematerialusedhistory" rel=pageTab tabid="CH-7">船/站物料使用历史</a></li>
+	          	<li ms-if="showMenu('A2_3_S')"><a href="/inventorymanager/check" rel=pageTab tabid="CH-3">盘点管理</a></li>
+	          	<li ms-if="showMenu('A2_4_S')"><a href="/inventorymanager/transfer" rel=pageTab tabid="CH-4">移位管理</a></li>
+	          	<li ms-if="showMenu('A2_5_S')"><a href="/inventorymanager/scrap" rel=pageTab tabid="CH-5">报废管理</a></li>
+	          	<li ms-if="showMenu('A2_6_S')"><a href="/inventorymanager/inventorywarning" rel=pageTab tabid="CH-6">库存预警</a></li>
+	          </ul>
+          </div>
+      </li>      
+	<li ms-if="showMenu('A3')" class="item item-SP"> <a href="javascript:void(0);" class="SP main-nav">审批管理<span class="arrow"></span></a>
+       <div class="sub-nav-wrap">
+          <ul class="sub-nav" >
+          	<li ms-if="showMenu('A3_1_S')"><a href="/approve/purchaseapplyapprove" rel=pageTab tabid="SP-2">采购申请审批</a></li>
+          	<li ms-if="showMenu('A3_2_S')"><a href="/approve/getmaterialapplyapprove" rel=pageTab tabid="SP-1">领料申请审批</a></li>
+          	<li ms-if="showMenu('A3_3_S')"><a href="/approve/returnmaterialapplyapprove" rel=pageTab tabid="SP-3">退料申请审批</a></li>
+          	<!-- <li ms-if="showMenu('A3_4_S')"><a href="/add.html" rel=pageTab tabid="SP-3">创建流程</a></li> -->
+          </ul>
+        </div>
+    </li>
+ 	<li ms-if="showMenu('A4')" class="item item-cg"> <a href="javascript:void(0);" class="cg main-nav">采购申请<span class="arrow"></span></a>
+        <div class="sub-nav-wrap">
+          <ul class="sub-nav" >
+          	<li ms-if="showMenu('A4_1_S')"><a href="/scm/purchaseapply" rel=pageTab tabid="cg-6">采购申请</a></li>
+          	<!-- <li><a href="/scm/purchaseapply" rel=pageTab tabid="cg-7">采购申请历史</a></li> -->
+          	<li ms-if="showMenu('A4_2_S')"><a href="/scm/putinstorage" rel=pageTab tabid="cg-8">入库通知</a></li>
+          </ul>
+        </div>
+    </li>
+ 	<li ms-if="showMenu('A5')" class="item item-LL"> <a href="javascript:void(0);" class="LL main-nav">领料申请<span class="arrow"></span></a>
+        <div class="sub-nav-wrap">
+          <ul class="sub-nav" >
+          	<li ms-if="showMenu('A5_1_S')"><a href="/getmaterial/getmaterialapply" rel=pageTab tabid="LL-1">领料申请</a></li>
+          	<!-- <li><a href="/getmaterial/getmaterialapply" rel=pageTab tabid="LL-2">领料申请历史</a></li> -->
+          </ul>
+        </div>
+      </li>
+ 	<li ms-if="showMenu('A6')" class="item item-TL"> <a href="javascript:void(0);" class="TL main-nav">退料申请<span class="arrow"></span></a>
+        <div class="sub-nav-wrap">
+          <ul class="sub-nav" >
+          	<li ms-if="showMenu('A6_1_S')"><a href="/returnmaterial/returnmaterialapply" rel=pageTab tabid="TL-1">退料申请</a></li>
+          	<!-- <li><a href="/returnmaterial/returnmaterialapply" rel=pageTab tabid="TL-2">退料申请历史</a></li> -->
+          </ul>
+        </div>
+      </li>
+      <li ms-if="showMenu('A7')" class="item item-BB"> <a href="javascript:void(0);" class="BB main-nav">报表<span class="arrow"></span></a>
+       <ul class="sub-nav-wrap cf group-nav" style="min-width:240px;width:250px;">
+          <li class="nav-item">
+          	  <h3>采购报表</h3>
+	          <ul class="sub-nav" >
+	          	<li ms-if="showMenu('A7_1_S')"><a href="/?go=reportforms/purchase/detail" rel=pageTab tabid="BB-100">采购明细表</a></li>
+	          	<li ms-if="showMenu('A7_2_S')"><a href="/?go=reportforms/purchase/material" rel=pageTab tabid="BB-101">采购汇总(按物料)</a></li>
+	          	<li ms-if="showMenu('A7_3_S')"><a href="/?go=reportforms/purchase/supplier" rel=pageTab tabid="BB-102">采购汇总(按供应商)</a></li>
+	          </ul>
+	       </li>
+	       <li class="nav-item cf last">
+          	  <h3>财务报表</h3>
+	          <ul class="sub-nav" >
+	          	<li ms-if="showMenu('A7_4_S')"><a href="/?go=reportforms/finance/monthlystatement" rel=pageTab tabid="BB-201">月结表</a></li>
+	          	<li ms-if="showMenu('A7_5_S')"><a href="/?go=reportforms/finance/monthlystatementstatistics" rel=pageTab tabid="BB-202">月结统计表</a></li>
+	          	<li ms-if="showMenu('A7_6_S')"><a href="/?go=reportforms/finance/putdetail" rel=pageTab tabid="BB-203">收发明细表</a></li>
+	          	<li ms-if="showMenu('A7_7_S')"><a href="/?go=reportforms/finance/getmaterialbyrepair" rel=pageTab tabid="BB-204">年修领料表</a></li>
+	          	<li ms-if="showMenu('A7_8_S')"><a href="/?go=reportforms/finance/yearstatementstatistics" rel=pageTab tabid="BB-205">年结统计表</a></li>
+	          </ul>
+	       </li>
+        </ul>
+      </li>
+      <li ms-if="showMenu('A8')" class="item item-DB"> <a href="javascript:void(0);" class="DB main-nav">基础资料<span class="arrow"></span></a>
+        <div class="sub-nav-wrap">
+          <ul class="sub-nav">
+          	<li ms-if="showMenu('A8_1_S')"><a href="/?go=scm/supplier/index" rel=pageTab tabid="DB-1">供应商档案</a></li>
+          	<li ms-if="showMenu('A8_2_S')"><a href="/basicdata/materialdata" rel=pageTab tabid="DB-2">物料管理</a></li>
+          	<li ms-if="showMenu('A8_3_S')"><a href="/basicdata/notice" rel=pageTab tabid="DB-3">通知管理</a></li>
+          	<li ms-if="showMenu('A8_4_S')"><a href="/basicdata/warehouselocation" rel=pageTab tabid="DB-4">仓位管理</a></li>
+          	<li ms-if="showMenu('A8_5_S')"><a href="/basicdata/childwarehouse" rel=pageTab tabid="DB-5">分公司管理</a></li>
+          	<li ms-if="showMenu('A8_6_S')"><a href="/basicdata/materialbroad" rel=pageTab tabid="DB-6">物料编码</a></li>
+          	<li ms-if="showMenu('A8_7_S')"><a href="/basicdata/parame" rel=pageTab tabid="DB-7">通用代码</a></li>
+          </ul>
+        </div>
+      </li>
+      <li  ms-if="showMenu('A11')"  class="item item-setting"> <a href="javascript:void(0);" class="setting main-nav">系统维护<span class="arrow"></span></a>
+        <div class="sub-nav-wrap group-nav" style="width:250px;">
+          <div class="nav-item"  ms-if="showMenu('A11_1_S')">
+            <h3>系统</h3>
+            <ul class="sub-nav" id="setting-base">
+            	<li><a href="/sso/position" rel=pageTab tabid="setting-1">组织机构</a></li>
+            	<li><a href="/sso/sysparame" rel=pageTab tabid="setting-2">企业设置</a></li>
+            	<li><a href="/sso/operlog" rel=pageTab tabid="setting-3">操作日志</a></li>
+            	<li><a href="/sso/user" rel=pageTab tabid="setting-log">用户管理</a></li>
+            </ul>
+          </div>
+          <div class="nav-item">
+            <h3>个人</h3>
+            <ul class="sub-nav" id="setting-base">
+            	<li><a href="/sso/user/person" rel=pageTab tabid="setting-person">个人信息</a></li>
+            	<li><a href="/sso/operlog?type=1" rel=pageTab tabid="setting-log">操作日志</a></li>
+            </ul>
+          </div>
+          <div class="nav-item cf last" ms-if="showMenu('A11_3_S')">
+            <h3>其他</h3>
+            <ul class="sub-nav" id="setting-advancedSetting">
+          	<li><a href="/sso/dailyPhrase" rel=pageTab tabid="setting-6">预警管理</a></li>
+          	<li><a href="/oa/workreporttemp" rel=pageTab tabid="setting-9">策略管理</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul><SCRIPT Language=VBScript>
+</SCRIPT>

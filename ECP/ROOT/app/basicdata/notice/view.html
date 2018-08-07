@@ -1,0 +1,43 @@
+<#include "../../inc/layout.html">
+<@layout title="通知视图" js="/basicdata/notice/view.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   	<div class="manage-wrap">
+<!-- 		<div ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		    <li class="row-item">
+    				<div class="label-wrap"><label for="title">标题</label></div>
+    				<div class="ctn-wrap">{{data.title}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="content">内容</label></div>
+    				<div class="ctn-wrap">{{data.content}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="create_user_name">发布人</label></div>
+    				<div class="ctn-wrap">{{data.create_user_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="create_time">发布时间</label></div>
+    				<div class="ctn-wrap">{{data.create_time}}</div>
+    			</li>
+    		</ul>
+	  	</div>
+	    <div class="grid-wrap"style="padding-top:5px;"ms-visible="tabActive==2" >
+	    	<table id="grid"></table>
+	    </div> -->
+	    
+	    <div>
+	    	<div style="font-size:28px;text-align:center;">{{data.title}}</div>
+	    </div>
+	    <div style="margin-top:5px;">发布人：{{data.create_user_name}}</div>
+	    <div style="margin-top:5px;">发布时间：{{data.create_time}}</div>
+	    <hr style="margin-top:5px;">
+	    <div style="margin-top:5px;background-color:#F5F5F5;min-height:80%;">
+		    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.content}}</div>
+	    </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

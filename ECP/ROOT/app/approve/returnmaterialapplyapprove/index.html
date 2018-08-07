@@ -1,0 +1,26 @@
+<#include "../../inc/layout.html">
+<@layout title="退料申请审批" js="approve/returnmaterialapplyapprove/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+    	<ul class="ul-inline">
+	        <li>
+	          <input type="text"  ms-duplex="query.returnmaterial_no" class="ui-input con" value="" placeholder="请输入申请单编号">
+	        </li>
+	       	<li>
+	        <a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%"></i></a>
+	        <a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh" style="margin-top:25%"></i></a>
+	        </li>
+	        <li>
+        </li>
+	      </ul>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

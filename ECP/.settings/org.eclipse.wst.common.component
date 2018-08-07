@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ECP">
+        <wb-resource deploy-path="/" source-path="/ROOT" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/crm"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/oa"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/sso"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/scm"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/hr"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/fa"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/em"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/wf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/thirdParty"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/basicdata"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/activiti"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/approve"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/getmaterial"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/inventorymanager"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/returnmaterial"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ordermanager"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/reportforms"/>
+        <property name="java-output-path" value="/ECP/ROOT/WEB-INF/classes"/>
+        <property name="context-root" value="ecp"/>
+    </wb-module>
+</project-modules>

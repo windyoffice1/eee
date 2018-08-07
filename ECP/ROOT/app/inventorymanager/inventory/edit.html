@@ -1,0 +1,96 @@
+<#include "../../inc/layout.html">
+<@layout title="领料申请" js="getmaterial/getmaterialapply/edit.js">
+<style>
+body{background: #fff;}
+#prodcutTable .ui-input{width:100%;}
+.comboDiv{position:absolute;left:104px;}
+.comboDiv div{height:30px;}
+.table .comboDiv{position:absolute;left:133px;}
+.table tbody tr td{padding:0px;}
+.table tbody tr td .ui-input{width:100%;height:34px;}
+.table tbody tr .tdPd{padding:8px;}
+.table .ui-input{border:none;}
+.table1 td{padding:2px;}
+.tr{text-align:right;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+    	<form action=""id="base_form">
+    			<table style="width:100%;" class="table1">
+    				<tr>
+    					<td width="10%" align="right">仓位：</td>
+    					<td width="20%">
+	    					<select ms-duplex="data.warehouse_id" class="ui-input" style="width:100%;" data-rule="required" data-msg="请选择仓位">
+	    						<option ms-repeat="warehouseList" ms-value="el.id">{{el.warehouse_name}}</option>
+	    					</select>
+    					</td>
+    					<td width="13%"align="right">单据日期：</td>
+    					<td width="17%"><input id="sign_date" class="ui-input ui-datepicker-input" style="width:100%;" ms-duplex="data.sign_date" data-msg="单据日期" data-rule="required;"/></td>
+    					<td width="13%" align="right">单据编号：</td>
+    					<td width="20%">{{data.getmaterial_no}}</td>
+    				</tr>
+    				<tr>
+    					<td align="right">领料员：</td>
+    					<td>{{SYSTEM.user.realname}}</td>
+    					<td width="10%" align="right">领料日期：</td>
+    					<td><input id="getmaterial_date" class="ui-input ui-datepicker-input" style="width:100%" ms-duplex="data.getmaterial_date" data-rule="required;" data-msg="请选择领料日期"/></td>
+    				</tr>
+    			</table>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+    			style="display:block;overflow:auto;min-height:100px;max-height:280px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="10%" style="text-align:center">物料名称</th>  						
+  						<th width="10%" style="text-align:center">物料编号</th>
+  						<th width="10%" style="text-align:center">型号规格</th>
+  						<th width="10%" style="text-align:center">单位</th>
+  						<th width="10%" style="text-align:center">报价</th>
+  						<th width="10%" style="text-align:center">数量</th>
+  						<th width="10%" style="text-align:center">金额</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td class="tdPd" style="text-align:center">{{$index+1}}</td>
+  						<td class="tdPd" style="text-align:center"><nobr><i class="fa fa-plus mrb" ms-click="addRow" title="增加"></i><i class="fa fa-trash mrb" ms-click="delRow" title="移除"></i></nobr></td>
+	          			<td style="text-align:center">
+	          			<input type="text"class="ui-input"  style="text-align:center" ms-attr-id="ix{{$index}}" autocomplete="off" ms-keyup="qryProduct(this.value,$index)" ms-click="qryProduct(this.value,$index)"
+	          			 ms-duplex="el.material_data_name" data-rule="required;" data-msg="请选择商品">
+	          			<div class="comboDiv" style="margin-left:0.9%;width: 200px;"ms-visible="productComboDiv==$index">
+	          				<div ms-repeat="productlist" ms-click="chooseProduct(el,productComboDiv)">{{el.material_no}}&nbsp;&nbsp;{{el.material_name}}</div>
+	          			</div></td>
+  						<td class="tdPd" style="text-align:center">{{el.material_data_no}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.model_number}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.unit|custParame}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.purchase_price|money}}</td>
+  						<td style="text-align:center"><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" ms-duplex="el.amount" ms-change="jisuan"></td>
+  						<td style="text-align:center"><input class="ui-input tr" ms-attr-id="id4{{$index}}"data-rule="required;money" ms-duplex="el.total_money" ms-change="jisuan" ms-value="{{fixedNum(el.purchase_price*el.amount)}}"></td>
+  						<!-- <td><input class="ui-input" ms-attr-id="id8{{$index}}"maxlength="30" ms-duplex="el.description"></td> -->
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="7" align="right"><b>合计：</b></td>
+  						<td>{{(total_amount)}}</td>
+  						<td align="right">{{total_money|money}}</td>
+  					</tr>
+  					
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+          <p>
+            	订单金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+           <p>
+			 备注：
+           <br>
+           <input ms-duplex="data.comment" id="comment" class="ui-input" style="width:100%;">
+           </p>
+       </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

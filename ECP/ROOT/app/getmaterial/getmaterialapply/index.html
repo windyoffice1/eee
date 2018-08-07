@@ -1,0 +1,42 @@
+<#include "../../inc/layout.html">
+<@layout title="领料申请" js="getmaterial/getmaterialapply/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+    	<ul class="ul-inline">
+	        <li>
+	          <input type="text"  ms-duplex="query.getmaterial_name" class="ui-input con" value="" placeholder="请输入申请单名称后单号">
+	        </li>
+<!-- 	        <li>
+	          <label>日期:</label>
+	          <input type="text" ms-duplex="query.start_date" class="ui-input ui-datepicker-input" placeholder="起始日期">
+	          <span>-</span>
+	          <input type="text" ms-duplex="query.end_date" class="ui-input ui-datepicker-input" placeholder="截止日期">
+	        </li> -->
+	       	<li>
+	        	<a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+	        	<a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh" style="margin-top:25%" ></i></a>
+	        </li>
+	        <li>
+		        <div class="dropdown">
+					<a class="ui-btn dropdown-toggle" data-toggle="dropdown">{{fastQryText}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ms-repeat="fastQry" ms-class="divider:el.sl"><a ms-click="qry($index)">{{el.text}}</a></li>
+					</ul>
+				</div>
+        	</li>
+	    </ul>
+    </div>
+    <div class="fr">
+    <a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a>
+    <!-- <a class="ui-btn mrb" id="btn-batchDel"title="批量删除"><i class="fa red fa-trash-o" style="margin-top:50%"></i></a> -->
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

@@ -1,0 +1,123 @@
+<#include "../../inc/layout.html">
+<@layout title="财务报表/收发明细表" js="reportforms/finance/putdetail.js">
+<style>
+html{overflow:auto;}
+.comboDiv{position:absolute;left:61px;}
+.comboDiv div{height:30px;}
+</style>
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf" ms-if="nprint">
+    <div class="fl">
+      <ul class="ul-inline">
+        <li>
+        	<select ms-duplex="query.year" class="ui-input" ms-change="model.setMonth()">
+				<option ms-repeat="year" ms-value="el">{{el}}</option>
+			</select>
+        	<label>年</label>
+        </li>
+        <li>
+        	<select ms-duplex="query.month" class="ui-input" ms-change="model.loadData()">
+				<option ms-repeat="month" ms-value="el">{{el}}</option>
+			</select>
+        	<label>月</label>
+        </li>
+      	<li>
+        	<label>物料大类:</label>
+        	<input type="text" class="ui-input" autocomplete="off" style="width:130px;" ms-keyup="qryMatrialBroad(this.value)" ms-click="qryMatrialBroad(this.value)" ms-duplex="query.material_broad_name">
+		    <div class="comboDiv" style="width:10%;left:19.8%;" ms-visible="materialBroadComboV">
+		    	<div ms-click="chooseALLMaterialBroad()">全部</div>
+		    	<div ms-repeat="materialBroadList" ms-click="chooseMaterialBroad(el)">{{el.material_no}}-{{el.material_name}}</div>
+		    </div>
+        </li>
+        <li>
+        	<label>单据类型:</label>
+        	<select ms-duplex="query.type" class="ui-input" ms-change="model.loadData()">
+				<option value="">所有</option>
+				<option value="入库单">入库单</option>
+				<option value="出库单">出库单</option>
+			</select>
+        </li>
+        <li>
+        	<label>物料编号:</label>
+        	<input type="text" class="ui-input" autocomplete="off" style="width:130px;"  ms-duplex="query.material_data_no">
+        </li>
+        <li>
+        	<label>领料单位:</label>
+			<select ms-duplex="query.child_warehouse_id" class="ui-input" style="" data-msg="请选择领料单位">
+				<option value="">所有</option>
+				<option ms-repeat="childwarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+			</select>
+        </li>
+        <li>
+	        <a class="ui-btn mrb"  id="btn_query" ms-click="model.loadData()" title="查询"><i class="fa fa-search" style="margin-top:30%"></i></a>
+	        <a class="ui-btn mrb" id="refresh" ms-click="model.resetQry()" title="重置查询条件"><i class="fa fa-refresh" style="margin-top:35%" ></i></a>
+	        <a class="ui-btn mrb" id="btn_down" ms-click="model.excelExport()" title="导出"><i class="fa fa-download" style="margin-top:30%"></i></a>
+	        <a class="ui-btn mrb" ms-click="printRpt" title="打印"><i class="fa fa-print" style="margin-top:30%"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="no-query" ms-if="list.length==0"></div>
+  <div class="bills" ms-if="list.length>0">
+    <p style="font-size:24px;text-align:center;">
+    	<span>收发明细表</span>
+    </p>
+	<table class="table table-bordered table-striped able-hover">
+		<thead>
+			<tr>
+				<th>物料编号</th>
+				<th>所属大类</th>
+				<th>物料名称</th>
+				<th>型号规格</th>
+				<th>单位</th>
+				<th>出/入库单号</th>
+				<th>出/入库数量</th>
+				<th>单价（元）</th>
+				<th>金额（元）</th>
+				<th>期初数量</th>
+				<th>期初金额（元）</th>
+				<th>期末数量</th>
+				<th>期末金额（元）</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ms-repeat="list">
+				<th>{{el.material_data_no}}</th>
+				<td>{{el.belong_to_broad_name}}</td>
+				<td>{{el.material_data_name}}</td>
+				<td>{{el.model_number}}</td>
+				<td>{{el.unit|custParame}}</td>
+				<td>{{el.put_name}}</td>
+				<td>{{el.amount}}</td>
+				<td>{{el.price}}</td>
+				<td>{{el.total_money}}</td>
+				<td>{{el.begin_amount}}</td>
+				<td>{{el.begin_money}}</td>
+				<td>{{el.end_amount}}</td>
+				<td>{{el.end_money}}</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<!-- <td ms-attr-colspan="8" align="right"><b>合计</b></td> -->
+				<td><b>合计</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td align="right">{{total_money}}</td>
+				<!-- <td align="right">{{begin_total_amount}}</td> -->
+				<td></td>
+				<td align="right">{{begin_total_money}}</td>
+				<!-- <td align="right">{{end_total_amount}}</td> -->
+				<td></td>
+				<td align="right">{{end_total_money}}</td>
+			</tr>
+		</tfoot>
+	</table>
+  </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

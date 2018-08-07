@@ -1,0 +1,44 @@
+<#include "../../inc/layout.html">
+<@layout title="仓位管理" js="basicdata/warehouselocation/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">仓位信息</a></li>
+	</ul>
+<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		    <li class="row-item">
+    				<div class="label-wrap"><label>仓位名称</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.warehouse_name"id="warehouse_name" data-rule="required;"  maxlength="20" placeholder="请输入仓位名称"></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label>管理员</label></div>
+    				<div class="ctn-wrap">
+    					<select ms-duplex="data.admin_id" class="ui-input" style="width:220px;" data-rule="required" data-msg="请选择管理人">
+    						<option ms-repeat="userList" ms-value="el.id">{{el.realname}}({{el.department_name}}-{{el.position_name}})</option>
+    					</select>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="phone">电话号码</label></div>
+    				<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.phone" id="phone"placeholder="请输入电话号码" maxlength="20" ></div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">仓位位置</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.location" id="location"placeholder="请输入仓位位置" maxlength="20" ></div>
+	    				<!-- <select ms-duplex="data.ownership" class="ui-input">
+	    					<option ms-repeat="parameList[5]" ms-value="el.id">{{el.name}}</option>
+	    				</select> -->
+    				</div>
+    			</li>
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

@@ -1,0 +1,27 @@
+<#include "../../inc/layout.html">
+<@layout title="库存预警" js="inventorymanager/inventorywarning/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+      <ul class="ul-inline">
+        <li>
+          <input type="text"  ms-duplex="query.material_name" class="ui-input con" value="" placeholder="请输物料名称">
+        </li>
+        <li>
+			<input type="text"  ms-duplex="query.material_no" class="ui-input con" value="" placeholder="请输物料编号">
+        <li>
+        <a class="ui-btn" id="search" title="查询"><i class="fa fa-search"  style="margin-top:25%" ></i></a>
+        <a class="ui-btn" id="refresh" title="刷新"><i class="fa fa-refresh"  style="margin-top:25%" ></i></a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

@@ -1,0 +1,45 @@
+<#include "../../inc/layout.html">
+<@layout title="船站物料使用历史" js="inventorymanager/childwarehousematerialusedhistory/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+       <div class="fl" style="width:80%">
+    	<ul class="ul-inline">
+    		<li style="width:10%;">
+        	   <select ms-duplex="query.material_type_id" class="ui-input" style="width:100%;">
+        	   		<option style="font-style: italic" value="">请选择物料类型</option>
+   					<option ms-repeat="parameList[21]" ms-value="el.id">{{el.name}}</option>
+   				</select>
+	        </li>
+	        <li style="width:10%;">
+        	   <select ms-duplex="query.material_broad_id" class="ui-input" style="width:100%;">
+        	   		<option style="font-style: italic" value="">请选择物料大类</option>
+   					<option ms-repeat="materialBroadList" ms-value="el.id">{{el.material_name}}</option>
+   				</select>
+	        </li>
+	        <li ms-if="model.superDepartment!='分公司'">
+        	   <select ms-duplex="query.child_warehouse_id" class="ui-input">
+        	   		<option style="font-style: italic" value="">请选择子公司</option>
+   					<option ms-repeat="childwarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+   				</select>
+	        </li>
+	       	<li>
+				<input type="text"  ms-duplex="query.material_data_no" class="ui-input con" value="" placeholder="请输入物料编号或名称">
+	       	<li>
+	        <li>
+	        	<a class="ui-btn" id="search" ms-click="reloadData" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+	        	<a class="ui-btn" id="refresh" ms-click="resetQry" title="重置查询条件"><i class="fa fa-refresh"  style="margin-top:25%"></i></a>
+	        </li>
+	      </ul>
+    </div>
+    <div class="fr">
+    	<a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a>
+    </div>
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

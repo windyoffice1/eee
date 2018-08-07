@@ -1,0 +1,75 @@
+<#include "../../inc/layout.html">
+<@layout title="入库通知单" js="scm/putinstorage/view.js">
+<style>
+body{background: #fff;}
+.table1 td{padding:2px;}
+u{width:200px;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+    				<table style="width:100%;" class="table1">
+    				<tr>
+    					<td width="10%" align="right"><span>供应商：</span></td>
+    					<td width="20%">
+	    					{{data.customer_name}}
+    					</td>
+    					<td width="12%" align="right"><span>入库日期：</span></td>
+    					<td width="12%" align="left">{{data.putinstorage_date}}</td>
+    					<td width="13%" align="right">入库单名称：</td>
+    					<td width="40%">{{data.putinstorage_name}}</td>
+    				</tr>
+    				</table>
+    		</ul>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+    			style="display:block;overflow:auto;min-height:100px;max-height:320px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="10%">&nbsp;</th>
+  						<th width="15%" style="text-align:center">物料名称</th>  						
+  						<th width="15%" style="text-align:center">物料编号</th>
+  						<th width="10%" style="text-align:center">型号规格</th>
+  						<th width="10%" style="text-align:center">单位</th>
+  						<th width="10%" style="text-align:center">计划价</th>
+  						<th width="10%" style="text-align:center">计划金额</th>
+  						<th width="10%" style="text-align:center">采购价</th>
+  						<th width="10%" style="text-align:center">数量</th>
+  						<th width="15%" style="text-align:center">实际金额</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td style="text-align:center">{{$index+1}}</td>
+  						<td style="text-align:center">{{el.material_name}}</td>
+  						<td style="text-align:center">{{el.material_no}}</td>
+  						<td style="text-align:center">{{el.model_number}}</td>
+	          			<td style="text-align:center">{{el.unit|custParame}}</td>  						
+  						<td style="text-align:center">{{el.target_price|money}}</td>
+  						<td style="text-align:center">{{el.plan_putinstorage_total_money|money}}</td>
+  						<td style="text-align:center">{{el.purchase_price|money}}</td>
+  						<td style="text-align:center">{{el.amount}}</td>
+  						<td style="text-align:center">{{el.total_money|money}}</td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="8" align="right"><b>合计：</b></td>
+  						<td>{{fixedNum(total_amount)}}</td>
+  						<td>{{fixedNum(total_money)}}</td>
+  					</tr>
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+          <p>
+            	入库单金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+           <p>创建人：<u>{{data.create_user_name}}</u>&nbsp;&nbsp;&nbsp;创建时间：<u>{{data.create_time}}</u>
+           <p>
+			 备注：
+           <br>
+           {{data.comment}}
+           </p>
+       </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

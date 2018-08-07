@@ -1,0 +1,307 @@
+<#include "../../inc/layout.html">
+<@layout title="职位权限" js="sso/position/permission.js">
+<style>
+/* .table thead tr {display:block;} */
+/* .table tbody {display:block;height:450px;overflow: auto;} */
+.table tbody tr td{height:15px;padding:4px;}
+/* .table{max-height:380px;max-width:790px;width:790px;} */
+.wrapper{display:block;overflow:auto;height:600px;width:1000px;}
+</style>
+<div class="wrapper" ms-controller="ctrl">
+  <div class="grid-wrap">
+  <form id="base_form">
+  <input type="hidden" name="id" id="id">
+  <ul class="mod-form-rows base-form" >
+  	<li class="row-item odd">
+    	<div class="label-wrap"><label for="position">岗位</label></div>
+    	<div class="ctn-wrap"><input type="text" value="A--S" class="ui-input" width="200px" id="position" readonly></div>
+    </li>
+    <li class="row-item odd">
+    	<div class="ctn-wrap"><label for="chk_all"><input type="checkbox" id="chk_all">全选</label></div>
+    </li>
+  </ul>
+  <table class="table table-striped table_thead_fixed table-bordered">
+  	<thead>
+  		<tr>
+  			<th width="100px">模块</th>
+  			<th width="50px">可见</th>
+  			<th width="100px">菜单</th>
+  			<th width="100px">可见</th>
+  			<th width="100px">查看</th>
+  			<th width="100px">编辑</th>
+  			<th width="100px">导出</th>
+  			<th width="100px">导入</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	<!-- 客户 -->
+  	<tr>
+  		<td rowspan="3" width="100px">订单管理</td>
+  		<td rowspan="3" width="100px"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1"></label></td>
+  		<td width="100px">出库管理</td>
+  		<td width="100px"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_1_S"></label></td>
+  		<td width="100px"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_1_V"></label></td>
+  		<td width="100px"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_1_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>入库管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_2_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	  	<tr>
+  		<td>退料管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_3_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_3_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A1_3_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td rowspan="7">存货管理</td>
+  		<td rowspan="7" width="100px"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2"></label></td>
+  		<td>库存列表</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_1_V"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>船/站库存列表</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_2_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>船站物料使用历史</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_7_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_7_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_7_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>盘点管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_3_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_3_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_3_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>移位管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_4_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_4_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_4_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>报废管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_5_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_5_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_5_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>库存预警</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_6_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A2_6_V"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<!--  END-->
+  	<!-- 审批管理  -->
+  	<tr>
+  		<td rowspan="3">审批管理</td>
+  		<td rowspan="3"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3"></label></td>
+  		<td>采购申请审批</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_1_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>领料申请审批</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_2_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>退料申请审批</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_3_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_3_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A3_3_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<!--  END-->  	
+  	<!-- 采购  -->
+  	<tr>
+  		<td rowspan="2">采购</td>
+  		<td rowspan="2"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4"></label></td>
+  		<td>采购申请</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_1_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>入库通知</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A4_2_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td rowspan="1">领料</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A5"></label></td>
+  		<td>领料申请</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A5_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A5_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A5_1_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td rowspan="1">退料</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A6"></label></td>
+  		<td>退料申请</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A6_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A6_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A6_1_E"></label></td>
+  		<td>&nbsp;</td>
+  		<td>&nbsp;</td>
+  	</tr>
+  	<!--  END-->
+  	<!-- 报表  -->
+  	<tr>
+  		<td rowspan="2">报表</td>
+  		<td rowspan="2"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A7"></label></td>
+  		<td>采购报表</td>
+  		<td colspan="5">
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_1_S">采购明细表</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_2_S">采购汇总（按物料）</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_3_S">采购汇总（按供应商）</label>
+  		</td>
+  	</tr>
+  	<tr>
+  		<td>财务报表</td>
+  		<td colspan="5">
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_4_E">月结</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_4_S">月结表</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_5_S">月结统计表</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_6_S">收发明细表</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_7_S">年修领料表</label>
+  		<label><input type="checkbox" name="code" ms-duplex="data.code" value="A7_8_S">年结统计表</label>
+  		</td>
+  	</tr>
+  	<!--  END-->
+  	<!-- 基础资料  -->
+  	<tr>
+  		<td rowspan="7">基础资料</td>
+  		<td rowspan="7"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8"></label></td>
+  		<td>供应商档案</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_1_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>物料管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_2_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>通知管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_3_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_3_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_3_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr> 
+  	<tr>
+  		<td>仓位管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_4_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_4_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_4_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>子仓库管理</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_5_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_5_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_5_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>物料编码</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_6_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_6_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_6_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>通用代码</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_7_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_7_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A8_7_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	 
+  	<!-- 系统  -->
+  	<tr>
+  		<td rowspan="3">系统设置</td>
+  		<td rowspan="3"><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11"></label></td>
+  		<td>系统</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_1_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_1_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_1_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>个人</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_2_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_2_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_2_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td>其他</td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_3_S"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_3_V"></label></td>
+  		<td><label><input type="checkbox" name="code" ms-duplex="data.code" value="A11_3_E"></label></td>
+ 		<td>&nbsp;</td>
+ 		<td>&nbsp;</td>
+  	</tr>
+  	<!--  END-->
+  	</tbody>
+  </table>
+  </form>
+  </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

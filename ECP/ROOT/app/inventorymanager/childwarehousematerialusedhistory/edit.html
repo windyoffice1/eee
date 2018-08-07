@@ -1,0 +1,49 @@
+<#include "../../inc/layout.html">
+<@layout title="物料管理" js="inventorymanager/childwarehousematerialusedhistory/edit.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+    <form action=""id="base_form">
+		<div id="tab1" ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    		  	<li class="row-item">
+    				<div class="label-wrap"><label for="">分公司</label></div>
+    				<select  ms-if="model.superDepartment!='分公司'" ms-duplex="data.child_warehouse_id" class="ui-input" ms-click="model.chooseChildWarehouse(this.value)">
+    					<option ms-repeat="childwarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+    				</select>
+    				<div ms-if="model.superDepartment=='分公司'">{{SYSTEM.user.department_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">物料</label></div>
+    				<input type="text"class="ui-input" autocomplete="off" ms-keyup="qryProduct(this.value)" ms-click="qryProduct(this.value)" 
+    				ms-duplex="data.material_data_no" data-msg="请选择物料">
+          			<div class="comboDiv" style="margin-left:51%;;width: 200px;">
+          				<div ms-repeat="productlist" ms-click="chooseProduct(el)">{{el.material_data_no}}&nbsp;&nbsp;{{el.material_data_name}}</div>
+          			</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">使用数量</label></div>
+    				<div class="ctn-wrap">
+    					<div class="ctn-wrap"><input type="text" class="ui-input" ms-duplex="data.amount" id="amount"  data-rule="integer" maxlength="20" ></div>
+    				</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">操作人员</label></div>
+      				<div class="ctn-wrap">{{SYSTEM.user.realname}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="">备注</label></div>
+      				<div class="ctn-wrap">
+      					<div class="ctn-wrap">
+      						<input type="text" class="ui-input" ms-duplex="data.comment" id="comment" maxlength="20" >
+      					</div>
+      				</div>
+    			</li>      			
+    		</ul>
+    </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

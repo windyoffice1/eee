@@ -1,0 +1,99 @@
+<#include "../../inc/layout.html">
+<@layout title="领料申请" js="getmaterial/getmaterialapply/view.js">
+<style>
+body{background: #fff;}
+.table1 td{padding:2px;}
+u{width:200px;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+   			<table style="width:100%;" class="table1">
+   				<tr>
+   					<td width="13%"align="right">单据日期：</td>
+   					<td width="17%">{{data.sign_date}}</td>
+   					<td width="13%" align="right">单据编号：</td>
+   					<td width="20%">{{data.getmaterial_no}}</td>
+   					<td width="13%" align="right">类型：</td>
+   					<td width="20%">{{data.type}}</td>
+   				</tr>
+   				<tr>
+   					<td width="10%" align="right">领料日期：</td>
+   					<td>{{data.getmaterial_date}}</td>
+   					<td align="right">领料单位：</td>
+   					<td>{{data.child_warehouse_name}}</td>
+   					<td align="right">领料员：</td>
+   					<td>{{data.getmaterial_user_name}}</td>
+   				</tr>
+   			</table>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+    			style="display:block;overflow:auto;min-height:100px;max-height:280px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="100px">&nbsp;</th>
+  						<th width="250px" style="text-align:center">物料名称</th>  						
+  						<th width="250px" style="text-align:center">物料编号</th>
+  						<th width="250px" style="text-align:center">型号规格</th>
+  						<th width="250px" style="text-align:center">单位</th>
+  						<th width="250px" style="text-align:center">参考价</th>
+  						<th width="250px" style="text-align:center">库存数量</th>
+  						<th width="250px" style="text-align:center">数量</th>
+  						<th width="250px" style="text-align:center">金额</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td style="text-align:center">{{$index+1}}</td>
+  						<td style="text-align:center">{{el.material_data_name}}</td>
+  						<td style="text-align:center">{{el.material_data_no}}</td>
+  						<td style="text-align:center">{{el.model_number}}</td>
+	          			<td style="text-align:center">{{el.unit|custParame}}</td>  						
+  						<td style="text-align:center">{{el.purchase_price|money}}</td>
+  						<td style="text-align:center">{{el.existing_amount}}</td>
+  						<td style="text-align:center">{{el.amount}}</td>
+  						<td style="text-align:center">{{el.total_money|money}}</td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="7" align="right"><b>合计：</b></td>
+  						<td>{{fixedNum(total_amount)}}</td>
+  						<td>{{fixedNum(total_money)}}</td>
+  					</tr>
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+          <p>
+            	订单金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+           <p>创建人：<u>{{data.create_user_name}}</u>&nbsp;&nbsp;&nbsp;创建时间：<u>{{data.create_time}}</u>
+           			<span ms-if="data.update_user_name!=''">&nbsp;&nbsp;&nbsp;修改人：<u>{{data.update_user_name}}</u>&nbsp;&nbsp;修改时间：<u>{{data.update_time}}</u></span></p>
+           <p>
+			 备注：
+           <br>
+           {{data.comment}}
+           </p>
+       </div>
+       <div ms-if="audit_hidden==false">
+       <table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed">
+       	<thead>
+       		<tr>
+       		<th>审核人</th>
+       		<th>审核结果</th>
+       		<th>审核时间</th>
+       		<th>批注</th>
+       		</tr>
+       	</thead>
+       	<tbody>
+       		<tr ms-repeat="auditDetailList">
+       			<td>{{el.auditor_name}}</td>
+       			<td>{{el.audit_status|audit_status}}</td>
+       			<td>{{el.audit_datetime}}</td>
+       			<td>{{el.remark}}</td>
+       		</tr>
+       	</tbody>
+       </table>
+       </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

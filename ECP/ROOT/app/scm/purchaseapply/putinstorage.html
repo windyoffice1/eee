@@ -1,0 +1,100 @@
+<#include "../../inc/layout.html">
+<@layout title="采购申请" js="scm/purchaseapply/putinstorage.js">
+<style>
+body{background: #fff;}
+#prodcutTable .ui-input{width:100%;}
+.comboDiv{position:absolute;left:104px;}
+.comboDiv div{height:30px;}
+.table .comboDiv{position:absolute;left:133px;}
+.table tbody tr td{padding:0px;}
+.table tbody tr td .ui-input{width:100%;height:34px;}
+.table tbody tr .tdPd{padding:8px;}
+.table .ui-input{border:none;}
+.table1 td{padding:2px;}
+.tr{text-align:right;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl" style="display:block;overflow:auto;min-height:100px;max-height:450px;width:100%;">
+    <div class="manage-wrap">
+    	<form action=""id="base_form">
+   			<table style="width:100%;" class="table1">
+   				<tr>
+   					<td width="20%" align="right"><span>供应商：</span></td>
+   					<td width="20%">
+    					{{data.customer_name}}
+   					</td>
+   					<td width="20%" align="right"><span>发货日期：</span></td>
+   					<td width="20%" align="left">{{data.dispatch_date}}</td>
+   					<td width="20%" align="right">单据编号：</td>
+   					<td width="20%">{{data.purchase_no}}</td>
+   				</tr>
+   				<tr>
+   				    <td align="right"><span>采购员</span>：</td>
+   					<td>{{data.purchase_staff_name}}</td>
+					<td width="20%" align="right">入库日期：</td>
+					<td><input id="putinstorage_date" class="ui-input ui-datepicker-input" style="width:120px;" ms-duplex="data.putinstorage_date" data-msg="单据日期" data-rule="required;"></td>
+   				</tr>
+   			</table>
+    		<br/>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+    			style="display:block;overflow:auto;min-height:100px;max-height:280px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="3%">&nbsp;</th>
+  						<th width="3%">&nbsp;</th>
+  						<th width="10%" style="text-align:center">物料编号</th>
+  						<th width="10%" style="text-align:center">物料名称</th>  						
+  						<th width="5%" style="text-align:center">型号规格</th>
+  						<th width="5%" style="text-align:center">单位</th>
+  						<th width="10%" style="text-align:center">已入库数量</th>
+  						<th width="10%" style="text-align:center">未入库数量</th>
+  						<th width="8%" style="text-align:center">计划价</th>
+  						<th width="8%" style="text-align:center">计划金额</th>
+  						<th width="8%" style="text-align:center">采购价</th>
+  						<th width="8%" style="text-align:center">数量</th>
+  						<th width="8%" style="text-align:center">实际金额</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td width="5%" class="tdPd" align="center">{{$index+1}}</td>
+  						<td width="5%" class="tdPd" align="center"><nobr><i class="fa fa-trash mrb" ms-click="delRow($index)" title="移除"></i></nobr></td>
+	          			<td class="tdPd" align="center">{{el.material_data_no}}</td>
+  						<td class="tdPd" align="center">{{el.material_data_name}}</td>
+	          			<td class="tdPd" align="center">{{el.model_number}}</td>
+	          			<td class="tdPd" align="center">{{el.unit|custParame}}</td>
+	          			<td class="tdPd" align="center">{{el.putinstorage_amount}}</td>
+	          			<td class="tdPd" align="center">{{el.un_putinstorage_amount}}</td>
+  						<td class="tdPd" align="center">{{el.target_price|money}}</td>
+  						<td class="tdPd" align="center">{{el.plan_putinstorage_total_money|money}}</td>
+  						<td><input class="ui-input tr" ms-attr-id="id2{{$index}}" data-rule="required;money" 
+  								ms-duplex="el.purchase_price"  ms-change="jisuan_purchase(this.value,$index)"></input></td>
+  						<td><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" 
+  								ms-duplex="el.readey_putinstorage_amount"  ms-change="jisuan(this.value,$index)"/></td>
+  					<!-- 	<td><input class="ui-input tr"  ms-attr-id="id4{{$index}}"data-rule="required;money" ms-duplex="el.readey_putinstorage_total_money" 
+  								ms-value="{{fixedNum(el.target_price*el.readey_putinstorage_amount)}}"></td> -->
+  						<td class="tdPd" align="right">{{(el.readey_putinstorage_total_money)|money}}</td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="11" align="right"><b>合计：</b></td>
+  						<td>{{(total_amount)}}</td>
+  						<td align="right">{{total_money|money}}</td>
+  					</tr>
+  				</tfoot>
+    		</table>
+
+    		<div id="amountArea">
+	          <p>
+	            	订单金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}"/>
+	           </p>
+	           <p>
+				 备注：
+	           <br>
+	           <input ms-duplex="data.remark" id="remark" class="ui-input" style="width:100%;">
+	           </p>
+      		 </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

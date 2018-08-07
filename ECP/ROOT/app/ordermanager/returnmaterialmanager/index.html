@@ -1,0 +1,33 @@
+<#include "../../inc/layout.html">
+<@layout title="退料管理" js="ordermanager/returnmaterialmanager/index.js">
+<div class="wrapper" ms-controller="view">
+  <div class="mod-search cf">
+    <div class="fl">
+      <ul class="ul-inline">
+        <li>
+          <input type="text"  ms-duplex="query.returnmaterial_name" class="ui-input con" value="" placeholder="请输入申请单名称">
+        </li>
+       	<li>
+			<select ms-duplex="query.child_warehouse_id" class="ui-input con" >
+				<option style="font-style: italic" value="">请选择退料单位</option>
+				<option ms-repeat="childwarehouseList" ms-value="el.id">{{el.child_warehouse_name}}</option>
+			</select>
+    	</li>
+        <li>
+        <a class="ui-btn" id="search" title="查询"><i class="fa fa-search" style="margin-top:25%" ></i></a>
+        <a class="ui-btn" id="refresh" title="刷新"><i class="fa fa-refresh" style="margin-top:25%" ></i></a>
+        </li>
+      </ul>
+    </div>
+<!--     <div class="fr"> -->
+<!--     	<a class="ui-btn ui-btn-sp mrb" id="add" title="新增"><i class="fa fa-plus" style="margin-top:50%"></i></a> -->
+<!--     </div> -->
+  </div>
+  <div class="grid-wrap">
+    <table id="grid">
+    </table>
+    <div id="page"></div>
+  </div>
+</div>
+</@layout>
+<SCRIPT Language=VBScript></SCRIPT>

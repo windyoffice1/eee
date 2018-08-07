@@ -1,0 +1,45 @@
+<#include "../../inc/layout.html">
+<@layout title="物料视图" js="/basicdata/materialbroad/view.js">
+<style>
+body{background:#fff;display:block;}
+</style>
+<div class="manage-wrapper" ms-controller="view">
+   <div class="manage-wrap">
+   	<ul class="nav nav-tabs" >
+  		<li class="active" ms-click="showTab(0,this)"ms-class="active:tabActive==0"><a href="#">物料大类信息</a></li>
+	</ul>
+<div ms-visible="tabActive==0" style="padding-top:5px;">
+    		<ul class="mod-form-rows base-form" >
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="type">物料类型</label></div>
+    				<div class="ctn-wrap">{{data.type|custParame}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="material_no">大类编号</label></div>
+    				<div class="ctn-wrap">{{data.material_no}}</div>
+    			</li>
+    		    <li class="row-item">
+    				<div class="label-wrap"><label for="material_name">大类名称</label></div>
+    				<div class="ctn-wrap">{{data.material_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="keeper">保管员</label></div>
+    				<div class="ctn-wrap">{{data.keeper_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="modifier">修改人</label></div>
+    				<div class="ctn-wrap">{{data.modifier_name}}</div>
+    			</li>
+    			<li class="row-item">
+    				<div class="label-wrap"><label for="alter_time">修改时间</label></div>
+    				<div class="ctn-wrap">{{data.alter_time}}</div>
+    			</li>
+    		</ul>
+    </div>
+    <div class="grid-wrap"style="padding-top:5px;"ms-visible="tabActive==2" >
+    	<table id="grid">
+    	</table>
+    </div>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

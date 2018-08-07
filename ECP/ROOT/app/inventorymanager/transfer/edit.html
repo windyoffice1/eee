@@ -1,0 +1,96 @@
+<#include "../../inc/layout.html">
+<@layout title="移位" js="inventorymanager/transfer/edit.js">
+<style>
+body{background: #fff;}
+#prodcutTable .ui-input{width:100%;}
+.comboDiv{position:absolute;left:104px;}
+.comboDiv div{height:30px;}
+.table .comboDiv{position:absolute;left:133px;}
+.table tbody tr td{padding:0px;}
+.table tbody tr td .ui-input{width:100%;height:34px;}
+.table tbody tr .tdPd{padding:8px;}
+.table .ui-input{border:none;}
+.table1 td{padding:2px;}
+.tr{text-align:right;}
+</style>
+<div class="manage-wrapper" ms-controller="ctrl">
+    <div class="manage-wrap">
+    	<form action=""id="base_form">
+    			<table style="width:100%;" class="table1">
+    				<tr>
+    					<td width="10%" align="right">原属仓位：</td>
+    					<td width="20%">
+	    					<select ms-duplex="data.from_warehouse_id" class="ui-input" style="width:100%;" data-rule="required" ms-change="getWarehouseMaterial(this.value)" data-msg="请选择原属仓位">
+	    						<option ms-repeat="warehouseList" ms-value="el.id" >{{el.warehouse_name}}</option>
+	    					</select>
+    					</td>
+    					<td width="10%" align="right">目标仓位：</td>
+    					<td width="20%">
+	    					<select ms-duplex="data.target_warehouse_id" class="ui-input" style="width:100%;" data-rule="required" data-msg="请选择目标仓位">
+	    						<option ms-repeat="warehouseList" ms-value="el.id">{{el.warehouse_name}}</option>
+	    					</select>
+    					</td>
+    				</tr>
+    			</table>
+    		<br>
+    		<table class="table table-hover table-striped table_thead_fixed table-bordered table-condensed" id="prodcutTable"
+    			style="display:block;overflow:auto;min-height:100px;max-height:280px;width:100%;">
+  				<thead>
+  					<tr>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="5%" style="text-align:center">&nbsp;</th>
+  						<th width="10%" style="text-align:center">物料编号</th>
+  						<th width="10%" style="text-align:center">物料名称</th>  						
+  						<th width="10%" style="text-align:center">型号规格</th>
+  						<th width="10%" style="text-align:center">单位</th>
+  						<th width="10%" style="text-align:center">单价</th>
+  						<th width="10%" style="text-align:center">库存数量</th>
+  						<th width="10%" style="text-align:center">数量</th>
+  						<th width="10%" style="text-align:center">金额</th>
+  						<th width="10%" style="text-align:center">备注</th>
+  					</tr>
+  				</thead>
+  				<tbody style="max-height:400px;">
+  					<tr ms-repeat="data.productlist">
+  						<td class="tdPd" style="text-align:center">{{$index+1}}</td>
+  						<td class="tdPd" style="text-align:center"><nobr><i class="fa fa-plus mrb" ms-click="addRow" title="增加"></i><i class="fa fa-trash mrb" ms-click="delRow($index)" title="移除"></i></nobr></td>
+	          			<td style="text-align:center">
+	          			<input type="text"class="ui-input"  style="text-align:center" ms-attr-id="ix{{$index}}" autocomplete="off" ms-keyup="qryProduct(this.value,$index)" ms-click="qryProduct(this.value,$index)"
+	          			 ms-duplex="el.material_data_no" data-rule="required;" data-msg="请选择物料">
+	          			<div class="comboDiv" style="margin-left:0.9%;width: 200px;"ms-visible="productComboDiv==$index">
+	          				<div ms-repeat="productlist" ms-click="chooseProduct(el,productComboDiv)">{{el.material_data_no}}&nbsp;&nbsp;{{el.material_data_name}}</div>
+	          			</div></td>
+  						<td class="tdPd" style="text-align:center">{{el.material_data_name}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.model_number}}</td>
+	          			<td class="tdPd" style="text-align:center">{{el.unit|custParame}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.target_price|money}}</td>
+  						<td class="tdPd" style="text-align:center">{{el.existing_amount}}</td>
+  						<td style="text-align:center"><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" ms-duplex="el.amount" ms-change="jisuan(this.value,$index)"></td>
+  						<td style="text-align:center"><input class="ui-input tr" ms-attr-id="id4{{$index}}"data-rule="required;money" ms-duplex="el.total_money" ms-change="jisuan" ms-value="{{fixedNum(el.target_price*el.amount)}}"></td>
+  						<td><input class="ui-input" ms-attr-id="id8{{$index}}"maxlength="30" ms-duplex="el.comment"></td>
+  					</tr>
+  				</tbody>
+  				<tfoot>
+  					<tr>
+  						<td ms-attr-colspan="8" align="right"><b>合计：</b></td>
+  						<td>{{(total_amount)}}</td>
+  						<td align="right">{{data.transfer_total_money|money}}</td>
+  						<td></td>
+  					</tr>
+  					
+  				</tfoot>
+    		</table>
+    		<div id="amountArea">
+          <p>
+            	移位金额:&nbsp;&nbsp;{{fixedNum(data.order_amt)|money}}元(大写：{{fixedNum(data.order_amt)|atoc}})<input type="hidden" ms-duplex="data.order_amt" ms-value="{{sumPTax-data.rebate_amt}}">
+           </p>
+           <p>
+			 备注：
+           <br>
+           <input ms-duplex="data.comment" id="comment" class="ui-input" style="width:100%;">
+           </p>
+       </div>
+    	</form>
+    </div>
+</div>
+</@layout><SCRIPT Language=VBScript></SCRIPT>

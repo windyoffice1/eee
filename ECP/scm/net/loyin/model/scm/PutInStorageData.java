@@ -77,6 +77,17 @@ public class PutInStorageData  extends Model<PutInStorageData>{
 		
 	}
 	
+	/***
+	 * 查询入库单详情增加过滤条件 未入库数据大于零或者申请数据大于入库数量
+	 */
+	public List<PutInStorageData> listUnInStorageData(String id){
+		StringBuffer sql = new StringBuffer(
+				"SELECT spd.*,bmd.model_number, bmd.material_name,bmd.material_no FROM scm_putinstorage_data spd ");
+		sql.append("LEFT JOIN basic_material_data bmd ON spd.material_data_id=bmd.id ");
+		sql.append("WHERE spd.putinstorage_id=? and (spd.real_unputinstorage_amount>0 or spd.amount>spd.real_putinstarage_amount) order by material_no ");
+		return dao.find(sql.toString(), id);
+	}
+	
 	
 	//根据入库通知单核对，修改未入库数量
 	@Before(Tx.class)

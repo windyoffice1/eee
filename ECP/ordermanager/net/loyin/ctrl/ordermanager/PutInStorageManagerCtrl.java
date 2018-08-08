@@ -162,7 +162,7 @@ public class PutInStorageManagerCtrl  extends AdminBaseController<PutInStorage> 
 		getId();
 		PutInStorage putInStorage = PutInStorage.dao.findById(id, this.getCompanyId());
 		if (putInStorage != null){
-			List<PutInStorageData> productlist=PutInStorageData.dao.list(id);
+			List<PutInStorageData> productlist=PutInStorageData.dao.listUnInStorageData(id);
 			putInStorage.put("productlist",productlist);
 			putInStorage.put("productlistlength",productlist.size());
 			this.rendJson(true,null, "", putInStorage);

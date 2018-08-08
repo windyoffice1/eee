@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">  
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">  
     <property name="jdbcDriver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />  
-    <property name="jdbcUrl" value="jdbc:sqlserver://210.14.69.62:1433;databaseName=cmkyEcpDataBak" />  
+    <property name="jdbcUrl" value="jdbc:sqlserver://127.0.0.1:1433;databaseName=cmkyEcpDataBak" />  
     <property name="jdbcUsername" value="cmky" />  
     <property name="jdbcPassword" value="cmky123"/>
 <!--     <property name="jdbcUrl" value="jdbc:sqlserver://210.14.69.62:1433;databaseName=PassengerProject"/>  

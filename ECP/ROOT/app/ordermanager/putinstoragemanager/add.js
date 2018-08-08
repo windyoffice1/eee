@@ -53,7 +53,7 @@ var model = avalon.define({
     },
     addRow:function(){
     	model.data.productlist.push({material_data_id:'',material_data_name:'',material_name:'',material_data_no:'',material_no:"",real_putinstarage_amount:0,real_putinstorage_total_money:0,
-    		model_number:'',unit:"",purchase_price:"",existing_amount:0});
+    		model_number:'',unit:"",purchase_price:"",existing_amount:0,invoice_number:""});
     },//增加商品行;
     delRow:function(index){//删除商品行
     	if(model.data.productlist.length==1){

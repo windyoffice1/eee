@@ -32,6 +32,7 @@ body{background: #fff;}
   						<th width="8%" style="text-align:center">采购价</th>
   						<th width="8%" style="text-align:center">入库数量</th>
   						<th width="8%" style="text-align:center">入库金额</th>
+  						<th width="8%" style="text-align:center">发票号</th>
   						<th width="8%" style="text-align:center">备注</th>
   					</tr>
   				</thead>
@@ -60,6 +61,7 @@ body{background: #fff;}
   						<td><input class="ui-input tr" ms-attr-id="id3{{$index}}"data-rule="required;number" 
   								ms-duplex="el.real_putinstarage_amount"  ms-change="jisuan(this.value,$index)"/></td>
   						<td class="tdPd" align="center">{{el.real_putinstorage_total_money|money}}</td>
+  						<td><input class="ui-input" ms-attr-id="id8{{$index}}" maxlength="30" ms-duplex="el.invoice_number" data-rule="required;"></td>
     					<td><input class="ui-input" ms-attr-id="id9{{$index}}"maxlength="30" ms-duplex="el.putinstorage_comment"></td>
   					</tr>
   				</tbody>

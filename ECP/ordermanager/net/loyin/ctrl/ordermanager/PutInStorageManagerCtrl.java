@@ -241,6 +241,8 @@ public class PutInStorageManagerCtrl  extends AdminBaseController<PutInStorage> 
 				attr.put("real_putinstorage_total_money",this.getAttr(pname+"["+i+"][real_putinstorage_total_money]"));
 				//入库物料的备注
 				attr.put("putinstorage_comment",this.getAttr(pname+"["+i+"][putinstorage_comment]"));
+				//发票号码
+				attr.put("invoice_number",this.getAttr(pname+"["+i+"][invoice_number]"));
 				//仓位选择
 				attr.put("putinstorage_warehouse_id",this.getAttr(pname+"["+i+"][putinstorage_warehouse_id]"));
 				//入库日期

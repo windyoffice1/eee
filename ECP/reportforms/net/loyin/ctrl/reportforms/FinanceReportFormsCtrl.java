@@ -115,14 +115,13 @@ public class FinanceReportFormsCtrl extends AdminBaseController<PurchaseReportFo
 		String begin_month=this.getAttrForStr("begin_month");
 		String end_month=this.getAttrForStr("end_month");
 		String material_data_no=this.getAttrForStr("material_data_no");
-		String child_warehouse_id=this.getAttrForStr("child_warehouse_id");
 		if(type.equals("0")){
 			//按照物料大类统计
 			List<ReportFormsMonthlyStatement> list=ReportFormsMonthlyStatement.dao.monthlyStatementStatisticsByMaterialBroad(year, begin_month, end_month, material_data_no);
 			this.rendJson(true,null, "查询成功", list);
 		}else{
 			//按照船站统计
-			List<ChildWarehouse> list=ChildWarehouse.dao.monthlyStatementStatisticsByChildWarehouse(year,begin_month,child_warehouse_id);
+			List<ChildWarehouse> list=ChildWarehouse.dao.monthlyStatementStatisticsByChildWarehouse(year,begin_month);
 			List<ChildWarehouseMaterialType> list1=new ArrayList<ChildWarehouseMaterialType>();
 			for(int i=0; i<list.size();i++){
 				if(StringUtils.isNotBlank(list.get(i).getStr("child_warehouse_name"))){

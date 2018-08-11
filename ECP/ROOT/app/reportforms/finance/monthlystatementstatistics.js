@@ -150,12 +150,12 @@ var model = avalon.define({$id:'view',user:SYSTEM.user,parameList:typeList,
 									html+="<td>"+0.00+"</td>";
 								}
 							}
-							html+="<td>"+total_money+"</td></tr>";
+							html+="<td>"+total_money.toFixed(2)+"</td></tr>";
 							all_total_money+=total_money;
 	 					}
 						html+="</tr></tbody>";
 						html+="<tfoot><tr><td colspan='6' align='right'><b>合计(元)：</b></td>"
-						html+="<td>"+all_total_money+"</td></tr></tfoot>";
+						html+="<td>"+all_total_money.toFixed(2)+"</td></tr></tfoot>";
 						html+="</table></div>";
 						$("#view").append(html);
 					}

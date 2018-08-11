@@ -128,6 +128,7 @@ AND LEFT(god.outputstorage_date,7)='2017-11'
 GROUP BY bp.name,bcw.child_warehouse_name 
 
 	 */
+	@Deprecated
 	public List<ChildWarehouse> monthlyStatementStatisticsByChildWarehouse(String year,String begin_month,String child_warehouse_id){
 		List<String> params=new ArrayList<String>();
 		StringBuffer sql=new StringBuffer();
@@ -147,6 +148,29 @@ GROUP BY bp.name,bcw.child_warehouse_name
 			params.add(year+"-"+begin_month);
 		}
 		sql.append(" GROUP BY bcw.child_warehouse_name,bp.name ORDER BY child_warehouse_name ");
+		return dao.find(sql.toString(), params.toArray());
+	}
+	
+	public List<ChildWarehouse> monthlyStatementStatisticsByChildWarehouse(String year,String begin_month){
+		List<String> params=new ArrayList<String>();
+		StringBuffer sql=new StringBuffer();
+		sql.append(" SELECT t1.child_warehouse_name,t1.name,SUM ( t1.amount* t2.end_price ) AS total_money  ");
+		sql.append(" FROM (select ga.child_warehouse_id,bcw.child_warehouse_name,got.amount,t.id as typeId,t.name,t.material_data_id from getmaterial_outputstorage_data got ");
+		sql.append(" join getmaterial_apply ga on got.getmaterial_apply_id=ga.id join dbo.basic_child_warehouse bcw on bcw.id=ga.child_warehouse_id ");
+		sql.append(" join (select bp.id,bp.name,bmb.material_name,bmd.id as material_data_id from basic_parame bp join basic_material_broad bmb on bmb.type=bp.id join basic_material_data bmd on bmd.belong_to_broad_id=bmb.id ");
+		sql.append(" where bp.type=21) t on t.material_data_id=got.material_data_id) t1 join ( select material_data_id,end_price from report_forms_monthly_statement ");
+		if(StringUtils.isNotBlank(year)) {
+			sql.append(" where year=? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(begin_month)) {
+			if(begin_month.length()==1) {
+				begin_month="0"+begin_month;
+			}
+			sql.append(" and month =? ");
+			params.add(begin_month);
+		}
+		sql.append(" ) t2 on t1.material_data_id=t2.material_data_id group by t1.child_warehouse_name,name  order by t1.child_warehouse_name ");
 		return dao.find(sql.toString(), params.toArray());
 	}
 	

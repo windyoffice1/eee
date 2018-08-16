@@ -1,7 +1,12 @@
 package net.loyin.ctrl.reportforms;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +15,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.CollectionUtils;
+
 import net.loyin.ctrl.AdminBaseController;
 import net.loyin.jfinal.anatation.PowerBind;
 import net.loyin.jfinal.anatation.RouteBind;
@@ -184,6 +191,100 @@ public class FinanceReportFormsCtrl extends AdminBaseController<PurchaseReportFo
 		List<ReportFormsMonthlyStatement> list=ReportFormsMonthlyStatement.dao.putinAndOutputMaterialDetial(year, month, material_broad_id, type, material_data_no, child_warehouse_id);
 		this.rendJson(true,null, "查询成功", list);
 	}
+	
+	/***
+	 * 收发结存表
+	 */
+	public void putInAndOutMonthlyStatement() {
+		//期初金额
+		BigDecimal begin_amount=BigDecimal.ZERO;
+		Boolean beginAmountHasChange=false;
+		//入库数量合计
+		BigDecimal total_put_instorage_amount=BigDecimal.ZERO;
+		//入库金额合计
+		BigDecimal total_put_instorage_money=BigDecimal.ZERO;
+		//出库数量合计
+		BigDecimal total_outputstorage_amount=BigDecimal.ZERO;
+		//出库金额合计
+		BigDecimal total_outputstorage_money=BigDecimal.ZERO;
+		String year=this.getAttrForStr("year");
+		//year="2018";
+		String month=this.getAttrForStr("month");
+		//month="07";
+		String material_data_no=this.getAttrForStr("material_data_no");
+		//material_data_no="430307";
+		String material_data_name=this.getAttrForStr("material_data_name");
+		List<ReportFormsMonthlyStatement> list=ReportFormsMonthlyStatement.dao.findMonthlyStatementByDateAndMaterialNo(year, month,material_data_no , material_data_name);
+		if(CollectionUtils.isEmpty(list)) {
+			this.rendJson(true,null, "查询数据为空", "");
+		}else {
+			List<ReportFormsMonthlyStatement> resultList=new ArrayList<ReportFormsMonthlyStatement>();
+			//取第一条数据
+			ReportFormsMonthlyStatement reportFormsMonthlyStatement=list.get(0);
+			//物料ID
+			String material_data_id=reportFormsMonthlyStatement.getStr("material_data_id");
+			//根据ID查询表格第一行数据
+			List<ReportFormsMonthlyStatement> firstList=ReportFormsMonthlyStatement.dao.findFirstPutInAndOutMonthlyStatement(material_data_id,year,month);
+			//根据ID查询入库月结存数据
+			resultList.addAll(ReportFormsMonthlyStatement.dao.findPutInMonthlyStatement(material_data_id,year,month));
+			//根据ID查询出库月结存数据
+			resultList.addAll(ReportFormsMonthlyStatement.dao.findPutOutMonthlyStatement(material_data_id,year,month));
+			//将出入库结存数据按出入库时间正排序
+			Collections.sort(resultList, new Comparator<ReportFormsMonthlyStatement>() {
+				@Override
+				public int compare(ReportFormsMonthlyStatement o1, ReportFormsMonthlyStatement o2) {
+					try {
+						if(new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStr("put_date")).before(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStr("put_date")))) {
+							return -1;
+						}else {
+							return 1;
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					return 0;
+				}
+			});
+			//设置第一行结存表的期未数据
+			resultList.add(0, firstList.get(0));
+			for (int i = 0; i < resultList.size(); i++) {
+				ReportFormsMonthlyStatement currentDate=resultList.get(i);
+				String put_flag=currentDate.getStr("put_flag");
+				if(i==0) {
+					begin_amount=currentDate.getBigDecimal("begin_amount");
+				}else {
+					//入库
+					if("In".equals(put_flag)) {
+						begin_amount=begin_amount.add(currentDate.getBigDecimal("put_instorage_amount"));
+						total_put_instorage_amount=total_put_instorage_amount.add(currentDate.getBigDecimal("put_instorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_amount"));
+						total_put_instorage_money=total_put_instorage_money.add(currentDate.getBigDecimal("put_instorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_money"));
+						currentDate.set("end_amount", begin_amount);
+						beginAmountHasChange=true;
+					}
+					//出库
+					if("Out".equals(put_flag)) {
+						begin_amount=begin_amount.subtract(currentDate.getBigDecimal("outputstorage_amount"));
+						total_outputstorage_amount=total_outputstorage_amount.add(currentDate.getBigDecimal("outputstorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_amount"));
+						total_outputstorage_money=total_outputstorage_money.add(currentDate.getBigDecimal("outputstorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_money"));
+						currentDate.set("end_amount", begin_amount);
+						beginAmountHasChange=true;
+					}
+				}
+			}
+			//设置结存表最后一行数据
+			List<ReportFormsMonthlyStatement> lastList=ReportFormsMonthlyStatement.dao.findLastPutInAndOutMonthlyStatement(material_data_id,year,month);
+			ReportFormsMonthlyStatement lastReportFormsMonthlyStatement=lastList.get(0);
+			//设置最后合计行信息
+			lastReportFormsMonthlyStatement.put("end_amount",beginAmountHasChange?resultList.get(resultList.size()-1).get("end_amount"):begin_amount);
+			lastReportFormsMonthlyStatement.put("put_instorage_amount",total_put_instorage_amount);
+			lastReportFormsMonthlyStatement.put("put_instorage_money",total_put_instorage_money);
+			lastReportFormsMonthlyStatement.put("outputstorage_amount",total_outputstorage_amount);
+			lastReportFormsMonthlyStatement.put("outputstorage_money",total_outputstorage_money);
+			resultList.add(resultList.size(),lastReportFormsMonthlyStatement);
+			this.rendJson(true,null, "查询成功", resultList);
+		}
+		
+	}
 
 	/**
 	 * 年结统计表
@@ -239,4 +340,5 @@ public class FinanceReportFormsCtrl extends AdminBaseController<PurchaseReportFo
 			this.rendJson(true,null, "查询成功", list1);
 		}
 	}
+	
 }

@@ -1,6 +1,7 @@
 package net.loyin.model.scm;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import net.loyin.jfinal.anatation.TableBind;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;
 
 @TableBind(name="scm_purchase_apply_data")
@@ -111,6 +113,34 @@ public class PurchaseApplyData extends Model<PurchaseApplyData>{
 			}
 		}
 
+		
+	}
+	
+	/***
+	 * 	查询出所有审核通过且未入库的记录
+	 * @param pageNo
+	 * @param pageSize
+	 * @param filter
+	 * @return
+	 */
+	public List<PurchaseApplyData> pageGrid(String company_id,String creater_id){
+		
+		List<Object> parame=new ArrayList<Object>();
+		StringBuffer sql=new StringBuffer();
+		sql.append(" SELECT spa.purchase_no,spa.purchase_name,	spad.*,bmd.model_number,bmd.material_no AS material_data_no  FROM scm_purchase_apply_data spad  ");
+		sql.append(" join scm_purchase_apply spa ON spad.purchase_apply_id= spa.id ");
+		sql.append(" JOIN basic_material_data bmd ON spad.material_data_id= bmd.id ");
+		sql.append("  where spad.approve_status IS NULL   AND spa.approve_status= '2' ");
+		if(StringUtils.isNotBlank(company_id)){
+			sql.append(" and spa.company_id= ? ");
+			parame.add(company_id);
+		}
+		if(StringUtils.isNotBlank(creater_id)){
+			sql.append(" and spa.creater_id= ? ");
+			parame.add(creater_id);
+		}
+		sql.append(" order by  spa.create_time desc");
+		return dao.find(sql.toString(), parame.toArray());
 		
 	}
 }

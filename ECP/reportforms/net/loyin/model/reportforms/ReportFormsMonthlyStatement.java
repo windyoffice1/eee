@@ -417,4 +417,142 @@ GROUP BY belong_to_broad_name,belong_to_broad_no
 		return list;
 	}
 	
+	/***
+	 * 根据年，月，物料编号查询出物料月结信
+	 */
+	public List<ReportFormsMonthlyStatement> findMonthlyStatementByDateAndMaterialNo(String year,String month,String material_data_no,String material_data_name){
+		List<String> params=new ArrayList<String>();
+		StringBuilder sb=new StringBuilder();
+		sb.append(" SELECT rfms.* FROM report_forms_monthly_statement rfms LEFT JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id ");
+		sb.append(" WHERE 1=1 ");
+		if(StringUtils.isNotBlank(year)) {
+			sb.append(" AND rfms.year =? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(month)) {
+			month=month.length()==1?"0"+month:month;
+			sb.append(" AND rfms.month=? ");
+			params.add(month);
+		}
+		if(StringUtils.isNotBlank(material_data_no)) {
+			sb.append(" AND bmd.material_no=? ");
+			params.add(material_data_no);
+		}
+		if(StringUtils.isNotBlank(material_data_name)) {
+			sb.append(" AND bmd.material_name LIKE ? ");
+			params.add("%"+material_data_name+"%");
+		}
+		return dao.find(sb.toString(),params.toArray());
+	}
+	
+	/**
+	 * 根据物料ID查询月结收发明细表第一行数据
+	 */
+	public List<ReportFormsMonthlyStatement> findFirstPutInAndOutMonthlyStatement(String material_data_id,String year,String month) {
+		List<String> params=new ArrayList<String>();
+		StringBuilder sb=new StringBuilder(" SELECT bmd.material_no,bmb.material_name AS belong_to_broad_name,bmd.material_name,bmd.model_number, ");
+		sb.append(" bmd.unit,'期初结余' AS put_desc, NULL AS put_date,rfms.begin_amount,rfms.begin_average_price,rfms.begin_money, ");
+		sb.append(" NULL AS put_instorage_amount,NULL AS put_instorage_price,NULL AS put_instorage_money,NULL AS outputstorage_amount, ");
+		sb.append(" NULL AS outputstorage_price,NULL AS outputstorage_money,NULL AS end_amount,NULL AS end_price,NULL AS end_money,NULL AS put_flag ");
+		sb.append(" from report_forms_monthly_statement rfms JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id JOIN basic_material_broad bmb ON bmd.belong_to_broad_id= bmb.id ");
+		if(StringUtils.isNotBlank(material_data_id)) {
+			sb.append(" where rfms.material_data_id=? ");
+			params.add(material_data_id);
+		}
+		if(StringUtils.isNotBlank(year)) {
+			sb.append(" AND rfms.year =? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(month)) {
+			month=month.length()==1?"0"+month:month;
+			sb.append(" AND rfms.month=? ");
+			params.add(month);
+		}
+		return dao.find(sb.toString(), params.toArray());
+	}
+	
+	/***
+	 * 根据物料ID查询 入库结存明细表
+	 */
+	public List<ReportFormsMonthlyStatement> findPutInMonthlyStatement(String material_data_id,String year,String month){
+		List<String> params=new ArrayList<String>();
+		StringBuilder sb=new StringBuilder(" SELECT bmd.material_no,bmb.material_name AS belong_to_broad_name,bmd.material_name,bmd.model_number, ");
+		sb.append(" bmd.unit,sp.putinstorage_name AS put_desc, sprd.putinstorage_date AS put_date,NULL as begin_amount,NULL as begin_average_price,NULL as begin_money, ");
+		sb.append(" sprd.amount AS put_instorage_amount,sprd.purchase_price AS put_instorage_price,sprd.total_money AS put_instorage_money,NULL AS outputstorage_amount, ");
+		sb.append(" NULL AS outputstorage_price,NULL AS outputstorage_money,NULL AS end_amount,NULL AS end_price,NULL AS end_money, 'In' AS put_flag ");
+		sb.append(" from report_forms_monthly_statement rfms JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id ");
+		sb.append(" JOIN basic_material_broad bmb ON bmd.belong_to_broad_id= bmb.id JOIN scm_putinstorage_real_data sprd ON sprd.material_data_id=rfms.material_data_id ");
+		sb.append(" JOIN scm_putinstorage sp ON sprd.putinstorage_id=sp.id ");
+		if(StringUtils.isNotBlank(material_data_id)) {
+			sb.append(" where rfms.material_data_id=? ");
+			params.add(material_data_id);
+		}
+		if(StringUtils.isNotBlank(year)) {
+			sb.append(" AND rfms.year =? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(month)) {
+			month=month.length()==1?"0"+month:month;
+			sb.append(" AND rfms.month=? ");
+			params.add(month);
+		}
+		sb.append(" AND LEFT(sprd.putinstorage_date,7)=? ");
+		params.add(year+"-"+month);
+		return dao.find(sb.toString(), params.toArray());
+	}
+	
+	/***
+	 * 根据物料ID查询 出库结存明细表
+	 */
+	public List<ReportFormsMonthlyStatement> findPutOutMonthlyStatement(String material_data_id,String year,String month){
+		List<String> params=new ArrayList<String>();
+		StringBuilder sb=new StringBuilder();
+		sb.append(" SELECT bmd.material_no,bmb.material_name AS belong_to_broad_name,bmd.material_name,bmd.model_number,bmd.unit,ga.getmaterial_name AS put_desc,");
+		sb.append(" god.outputstorage_date AS put_date,NULL AS begin_amount,NULL AS begin_average_price,NULL AS begin_money,NULL AS put_instorage_amount,NULL AS put_instorage_price,");
+		sb.append(" NULl AS put_instorage_money,god.amount AS outputstorage_amount,NULL AS outputstorage_price,NULL AS outputstorage_money,NULL AS end_amount,NULL AS end_price,NULL AS end_money,'Out' AS put_flag ");
+		sb.append(" FROM report_forms_monthly_statement rfms JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id JOIN basic_material_broad bmb ON bmd.belong_to_broad_id= bmb.id");
+		sb.append(" JOIN getmaterial_outputstorage_data god ON god.material_data_id= rfms.material_data_id JOIN getmaterial_apply ga ON ga.id=god.getmaterial_apply_id ");
+		if(StringUtils.isNotBlank(material_data_id)) {
+			sb.append(" where rfms.material_data_id=? ");
+			params.add(material_data_id);
+		}
+		if(StringUtils.isNotBlank(year)) {
+			sb.append(" AND rfms.year =? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(month)) {
+			month=month.length()==1?"0"+month:month;
+			sb.append(" AND rfms.month=? ");
+			params.add(month);
+		}
+		sb.append(" AND LEFT(god.outputstorage_date,7)=? ");
+		params.add(year+"-"+month);
+		return dao.find(sb.toString(), params.toArray());	
+	}
+	
+	/***
+	 * 根据物料ID查询月结存明细表最后一行
+	 */
+	public List<ReportFormsMonthlyStatement> findLastPutInAndOutMonthlyStatement(String material_data_id,String year,String month){
+		List<String> params=new ArrayList<String>();
+		StringBuilder sb=new StringBuilder();
+		sb.append(" SELECT DISTINCT '合计' AS material_no,NULL AS belong_to_broad_name,NULL AS material_name,NULL AS model_number,NULL AS unit, NULL AS put_desc,NULL AS put_date,rfms.begin_amount,");
+		sb.append(" NULL AS begin_average_price,rfms.begin_money,NULL AS put_instorage_amount,NULL AS put_instorage_price,NULL AS put_instorage_money,NULL AS outputstorage_amount,god.purchase_price AS outputstorage_price,");
+		sb.append(" NULL AS outputstorage_money,NULL AS end_amount,rfms.end_price AS end_price,rfms.end_money AS end_money");
+		sb.append(" FROM report_forms_monthly_statement rfms LEFT JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id LEFT JOIN getmaterial_outputstorage_data god ON god.material_data_id= rfms.material_data_id ");
+		if(StringUtils.isNotBlank(material_data_id)) {
+			sb.append(" where rfms.material_data_id=? ");
+			params.add(material_data_id);
+		}
+		if(StringUtils.isNotBlank(year)) {
+			sb.append(" AND rfms.year =? ");
+			params.add(year);
+		}
+		if(StringUtils.isNotBlank(month)) {
+			month=month.length()==1?"0"+month:month;
+			sb.append(" AND rfms.month=? ");
+			params.add(month);
+		}
+		return dao.find(sb.toString(), params.toArray());	
+	}
 }

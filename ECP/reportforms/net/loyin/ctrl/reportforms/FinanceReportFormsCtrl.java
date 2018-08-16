@@ -255,17 +255,21 @@ public class FinanceReportFormsCtrl extends AdminBaseController<PurchaseReportFo
 				}else {
 					//入库
 					if("In".equals(put_flag)) {
-						begin_amount=begin_amount.add(currentDate.getBigDecimal("put_instorage_amount"));
-						total_put_instorage_amount=total_put_instorage_amount.add(currentDate.getBigDecimal("put_instorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_amount"));
-						total_put_instorage_money=total_put_instorage_money.add(currentDate.getBigDecimal("put_instorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_money"));
+						BigDecimal put_instorage_amount=currentDate.getBigDecimal("put_instorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_amount");
+						BigDecimal put_instorage_money=currentDate.getBigDecimal("put_instorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_money");
+						begin_amount=begin_amount.add(put_instorage_amount);
+						total_put_instorage_amount=total_put_instorage_amount.add(put_instorage_amount);
+						total_put_instorage_money=total_put_instorage_money.add(put_instorage_money);
 						currentDate.set("end_amount", begin_amount);
 						beginAmountHasChange=true;
 					}
 					//出库
 					if("Out".equals(put_flag)) {
-						begin_amount=begin_amount.subtract(currentDate.getBigDecimal("outputstorage_amount"));
-						total_outputstorage_amount=total_outputstorage_amount.add(currentDate.getBigDecimal("outputstorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_amount"));
-						total_outputstorage_money=total_outputstorage_money.add(currentDate.getBigDecimal("outputstorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_money"));
+						BigDecimal outputstorage_amount=currentDate.getBigDecimal("outputstorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_amount");
+						BigDecimal outputstorage_money=currentDate.getBigDecimal("outputstorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_money");
+						begin_amount=begin_amount.subtract(outputstorage_amount);
+						total_outputstorage_amount=total_outputstorage_amount.add(outputstorage_amount);
+						total_outputstorage_money=total_outputstorage_money.add(outputstorage_money);
 						currentDate.set("end_amount", begin_amount);
 						beginAmountHasChange=true;
 					}

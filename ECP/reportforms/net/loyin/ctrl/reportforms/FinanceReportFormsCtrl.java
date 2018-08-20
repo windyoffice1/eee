@@ -248,29 +248,29 @@ public class FinanceReportFormsCtrl extends AdminBaseController<PurchaseReportFo
 			//设置第一行结存表的期未数据
 			resultList.add(0, firstList.get(0));
 			for (int i = 0; i < resultList.size(); i++) {
-				ReportFormsMonthlyStatement currentDate=resultList.get(i);
-				String put_flag=currentDate.getStr("put_flag");
+				ReportFormsMonthlyStatement currentData=resultList.get(i);
+				String put_flag=currentData.getStr("put_flag");
 				if(i==0) {
-					begin_amount=currentDate.getBigDecimal("begin_amount");
+					begin_amount=currentData.getBigDecimal("begin_amount");
 				}else {
 					//入库
 					if("In".equals(put_flag)) {
-						BigDecimal put_instorage_amount=currentDate.getBigDecimal("put_instorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_amount");
-						BigDecimal put_instorage_money=currentDate.getBigDecimal("put_instorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("put_instorage_money");
+						BigDecimal put_instorage_amount=currentData.getBigDecimal("put_instorage_amount")==null?BigDecimal.ZERO:currentData.getBigDecimal("put_instorage_amount");
+						BigDecimal put_instorage_money=currentData.getBigDecimal("put_instorage_money")==null?BigDecimal.ZERO:currentData.getBigDecimal("put_instorage_money");
 						begin_amount=begin_amount.add(put_instorage_amount);
 						total_put_instorage_amount=total_put_instorage_amount.add(put_instorage_amount);
 						total_put_instorage_money=total_put_instorage_money.add(put_instorage_money);
-						currentDate.set("end_amount", begin_amount);
+						currentData.set("end_amount", begin_amount);
 						beginAmountHasChange=true;
 					}
 					//出库
 					if("Out".equals(put_flag)) {
-						BigDecimal outputstorage_amount=currentDate.getBigDecimal("outputstorage_amount")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_amount");
-						BigDecimal outputstorage_money=currentDate.getBigDecimal("outputstorage_money")==null?BigDecimal.ZERO:currentDate.getBigDecimal("outputstorage_money");
+						BigDecimal outputstorage_amount=currentData.getBigDecimal("outputstorage_amount")==null?BigDecimal.ZERO:currentData.getBigDecimal("outputstorage_amount");
+						BigDecimal outputstorage_money=currentData.getBigDecimal("outputstorage_money")==null?BigDecimal.ZERO:currentData.getBigDecimal("outputstorage_money");
 						begin_amount=begin_amount.subtract(outputstorage_amount);
 						total_outputstorage_amount=total_outputstorage_amount.add(outputstorage_amount);
 						total_outputstorage_money=total_outputstorage_money.add(outputstorage_money);
-						currentDate.set("end_amount", begin_amount);
+						currentData.set("end_amount", begin_amount);
 						beginAmountHasChange=true;
 					}
 				}

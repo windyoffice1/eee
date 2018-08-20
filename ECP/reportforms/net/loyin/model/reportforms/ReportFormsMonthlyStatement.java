@@ -361,7 +361,7 @@ GROUP BY belong_to_broad_name,belong_to_broad_no
 			StringBuffer putInStorageSql=new StringBuffer();
 			putInStorageSql.append("SELECT bmd.material_no AS material_data_no,bmb.material_name AS belong_to_broad_name, ");
 			putInStorageSql.append("bmd.material_name AS material_data_name,bmd.model_number,bmd.unit,sp.putinstorage_name as put_name, ");
-			putInStorageSql.append("sprd.amount,sprd.purchase_price AS price,sprd.total_money,rfms.begin_amount,rfms.begin_money, rfms.end_amount,rfms.end_money ");
+			putInStorageSql.append("sprd.amount,sprd.purchase_price AS price,sprd.putinstorage_date AS put_date,sprd.total_money,rfms.begin_amount,rfms.begin_average_price,rfms.begin_money,rfms.end_amount,rfms.end_money,rfms.end_price ");
 			putInStorageSql.append("FROM scm_putinstorage_real_data sprd LEFT JOIN scm_putinstorage sp ON sprd.putinstorage_id=sp.id ");
 			putInStorageSql.append("LEFT JOIN basic_material_data bmd ON sprd.material_data_id=bmd.id ");
 			putInStorageSql.append("LEFT JOIN basic_material_broad bmb ON bmd.belong_to_broad_id=bmb.id ");
@@ -387,7 +387,7 @@ GROUP BY belong_to_broad_name,belong_to_broad_no
 			StringBuffer outputStorageSql=new StringBuffer();
 			outputStorageSql.append("SELECT bmd.material_no AS material_data_no,bmb.material_name AS belong_to_broad_name, ");
 			outputStorageSql.append("bmd.material_name AS material_data_name,bmd.model_number,bmd.unit,ga.getmaterial_name AS put_name,");
-			outputStorageSql.append("god.amount,god.purchase_price AS price,god.total_money,rfms.begin_amount,rfms.begin_money,rfms.end_amount,rfms.end_money ");
+			outputStorageSql.append("god.amount,god.purchase_price AS price,god.outputstorage_date AS put_date,god.total_money,rfms.begin_amount,rfms.begin_average_price,rfms.begin_money,rfms.end_amount,rfms.end_money,rfms.end_price ");
 			outputStorageSql.append("FROM getmaterial_outputstorage_data god LEFT JOIN getmaterial_apply ga ON god.getmaterial_apply_id=ga.id ");
 			outputStorageSql.append("LEFT JOIN basic_child_warehouse bcw ON ga.child_warehouse_id=bcw.id  ");
 			outputStorageSql.append("LEFT JOIN basic_material_data bmd ON god.material_data_id=bmd.id ");
@@ -537,7 +537,7 @@ GROUP BY belong_to_broad_name,belong_to_broad_no
 		List<String> params=new ArrayList<String>();
 		StringBuilder sb=new StringBuilder();
 		sb.append(" SELECT DISTINCT '合计' AS material_no,NULL AS belong_to_broad_name,NULL AS material_name,NULL AS model_number,NULL AS unit, NULL AS put_desc,NULL AS put_date,rfms.begin_amount,");
-		sb.append(" NULL AS begin_average_price,rfms.begin_money,NULL AS put_instorage_amount,NULL AS put_instorage_price,NULL AS put_instorage_money,NULL AS outputstorage_amount,god.purchase_price AS outputstorage_price,");
+		sb.append(" NULL AS begin_average_price,rfms.begin_money,NULL AS put_instorage_amount,NULL AS put_instorage_price,NULL AS put_instorage_money,NULL AS outputstorage_amount,rfms.end_price AS outputstorage_price,");
 		sb.append(" NULL AS outputstorage_money,NULL AS end_amount,rfms.end_price AS end_price,rfms.end_money AS end_money");
 		sb.append(" FROM report_forms_monthly_statement rfms LEFT JOIN basic_material_data bmd ON bmd.id= rfms.material_data_id LEFT JOIN getmaterial_outputstorage_data god ON god.material_data_id= rfms.material_data_id ");
 		if(StringUtils.isNotBlank(material_data_id)) {
